@@ -1,0 +1,9 @@
+```yaml
+---
+  - hosts: all
+    user: root
+    vars: 
+        password: haHAfV7dvUhpM
+    tasks:
+        - user: name=hruser password=`password` update_password=always
+```
