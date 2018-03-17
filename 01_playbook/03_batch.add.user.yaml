@@ -1,4 +1,4 @@
-```yaml
+```
 ---
   - hosts: all
     user: root
