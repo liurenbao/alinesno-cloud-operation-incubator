@@ -1,0 +1,43 @@
+{
+    "title": "基础环境安装",
+    "isbn": "978-3-16-148410-0",
+    "language": "zh",
+    "direction": "ltr",
+    "styles": {
+        "website": "styles/website.css"
+    },
+    "plugins": [
+        "-lunr",
+        "-search",
+        "-livereload",
+        "search-plus@^0.0.11",
+        "edit-link@^2.0.2",
+        "advanced-emoji@^0.2.1",
+        "anchors@^0.7.1",
+        "splitter@^0.0.8",
+        "tbfed-pagefooter@^0.0.1",
+        "expandable-chapters-small@^0.1.7",
+        "simple-page-toc",
+        "alerts"
+    ],
+    "pluginsConfig": {
+        "theme-default":{
+            "showLevel":true
+
+        },
+        "tbfed-pagefooter":{
+            "copyright":"Copyright gitbook.linesno.com 2018",
+            "modify_label":"该文件修订时间：",
+            "modify_format":"YYYY-MM-DD HH:mm:ss"
+
+        },
+        "edit-link":{
+            "base":"https://gitee.com/landonniao/linesno-cloud-env/blob/master",
+            "label":"编辑这个页面"
+        },
+        "simple-page-toc": {
+            "maxDepth": 3,
+            "skipFirstH1": true
+        }
+    }
+}
