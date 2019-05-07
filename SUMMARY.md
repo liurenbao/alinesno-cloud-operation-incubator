@@ -5,6 +5,8 @@
 * [软件管理](00_soft/01_运维管理.md)
 
 ## 管理环境
+* [jenkins](20_jenkins/01_用户权限配置.md)
+    * [用户权限配置](20_jenkins/01_用户权限配置.md)
 * [springboot](19_springboot/01_配置说明.md)
     * [配置说明](19_springboot/01_配置说明.md)
 * [nginx](18_nginx/01_配置规范.md)
