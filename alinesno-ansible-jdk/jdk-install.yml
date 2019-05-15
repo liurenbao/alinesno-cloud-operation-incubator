@@ -1,0 +1,18 @@
+---
+- hosts: all
+  tasks:
+    - name: copy jdk remote hosts
+      copy: src=/root/jdk-8u171-linux-x64.tar dest=/root
+    - name: Decompressing files
+      shell: chdir=/root tar xf jdk-8u171-linux-x64.tar
+    - name: create links
+      file: src=/root/jdk1.8.0_171 dest=/usr/local/java state=link
+    - name: java_profile config
+      shell: /bin/echo {{ item  }} >> /etc/profile
+      with_items:
+        - export JAVA_HOME=/usr/local/java
+        - export JRE_HOME=/usr/local/java/jre
+        - export CLASSPATH=.:\$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:\$JRE_HOME/lib:\$CLASSPATH
+        - export PATH=\$JAVA_HOME/bin:\$PATH
+        - name: take effect
+          shell: source /etc/profile

@@ -19,7 +19,7 @@ mod_strip_version: 0.1
 echo_nginx_module_version: 0.58
 #set_misc_nginx_module_version: 0.29
 
-# system                                      
+# system
 sys_user: root
 sys_group: root
 nginx_user: root
@@ -42,10 +42,10 @@ config_list:
     - "--with-http_stub_status_module"
     - "--add-module={{download_dir}}/temp/mod_strip-{{mod_strip_version}}"
 
-# nginx config path                  
-http_conf_path: "http_conf.d"                # for http 
-tcp_conf_path: "tcp_conf.d"                  # for tcp 
- 
+# nginx config path
+http_conf_path: "http_conf.d"                # for http
+tcp_conf_path: "tcp_conf.d"                  # for tcp
+
 #nginx.config
 worker_processes: 8                           # nginx process
 
@@ -54,7 +54,7 @@ create_path:
     - "{{install_dir}}"
     - "{{download_dir}}/temp"
 
-# firewall port  
+# firewall port
 firewall_ports:
     - "80"
 ```

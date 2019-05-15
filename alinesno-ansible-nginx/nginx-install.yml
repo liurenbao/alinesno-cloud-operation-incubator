@@ -1,6 +1,6 @@
 ---
 - name: Install Nginx
-  hosts: nginx 
+  hosts: nginx
   user: root
   vars:
     install_mod_concat: true       # install concat mode
