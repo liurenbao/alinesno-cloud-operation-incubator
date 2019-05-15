@@ -14,12 +14,12 @@
         name: nginx
         state: present
 
-    - name: Insert Index Page
-      template:
-        src: index.html
-        dest: /usr/share/nginx/html/index.html
-
     - name: Start NGiNX
       service:
         name: nginx
         state: started
+
+    - name: check Nginx status
+      service:
+        name: nginx
+        state: status
