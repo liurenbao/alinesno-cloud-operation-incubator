@@ -19,7 +19,3 @@
         name: nginx
         state: started
 
-    - name: check Nginx status
-      service:
-        name: nginx
-        state: status
