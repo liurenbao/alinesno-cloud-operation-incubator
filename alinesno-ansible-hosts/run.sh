@@ -2,6 +2,7 @@
 
 if [ ! -f "/etc/ansible/hosts.bak"  ];then
     echo '备份原hosts文件数据成功.'
+    cp /etc/ansible/hosts /etc/ansible/hosts.bak
 fi
 
 cp /etc/ansible/hosts.bak -f /etc/ansible/hosts
