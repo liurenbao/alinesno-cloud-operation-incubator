@@ -1,3 +1,0 @@
----
-- name: Extract mod_strip archive
-  unarchive: src={{ download_path }}/mod_strip-{{mod_strip_version}}.tar.gz dest={{download_dir}}/temp

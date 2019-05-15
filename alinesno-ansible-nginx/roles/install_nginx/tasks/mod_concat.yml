@@ -1,3 +1,0 @@
----
-- name: Extract concat_module archive
-  unarchive: src={{ download_path }}/nginx_concat_module.tar.gz dest={{download_dir}}/temp/

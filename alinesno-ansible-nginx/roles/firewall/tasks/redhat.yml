@@ -1,6 +1,0 @@
----
-- name: Open Fire Wall
-  firewalld: port={{ item }}/tcp zone=public permanent=true state=enabled immediate=true
-  with_items:
-    - "{{ firewall_ports }}"
-  ignore_errors: true
