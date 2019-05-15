@@ -5,6 +5,7 @@ if [ ! -f "/etc/ansible/hosts.bak"  ];then
     cp /etc/ansible/hosts /etc/ansible/hosts.bak
 fi
 
+rm /etc/ansible/hosts
 cp hosts -f /etc/ansible/hosts
 
 echo '添加hosts主机内容.'
