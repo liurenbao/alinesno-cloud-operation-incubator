@@ -1,0 +1,7 @@
+---
+- name: Open Fire Wall
+  ufw: rule=allow port=80
+  with_items:
+    - "{{ firewall_ports }}"
+  when:  open_firewall
+  ignore_errors: true

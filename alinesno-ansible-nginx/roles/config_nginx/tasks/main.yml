@@ -1,0 +1,17 @@
+---
+- name: create fragment dir
+  file: path={{install_dir}}/nginx-{{nginx_version}}/conf/{{item}} state=directory
+  with_items:
+    - "{{ http_conf_path }}"
+    - "{{ tcp_conf_path }}"
+
+- name: Copy default http config files to http_conf.d directory
+  template: src=nginx_http_default.conf dest={{install_dir}}/nginx-{{nginx_version}}/conf/{{ http_conf_path }}
+
+- name: Copy Nginx config file
+  template: src=nginx.conf dest={{install_dir}}/nginx-{{nginx_version}}/conf/nginx.conf
+
+- name: Export Path
+  template: src=nginx_path.sh dest=/etc/profile.d/nginx_path.sh mode="u=rwx,g=rx,o=rx"
+
+

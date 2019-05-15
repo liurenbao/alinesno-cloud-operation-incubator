@@ -1,0 +1,10 @@
+---
+- include: redhat.yml
+  when: ansible_os_family == "RedHat"
+  
+- include: ubuntu.yml
+  when: ansible_os_family == "Debian"
+  
+- include: opensuse.yml
+  when: ansible_os_family|search('openSUSE')
+  
