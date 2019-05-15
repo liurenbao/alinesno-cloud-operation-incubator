@@ -1,17 +1,5 @@
 ### 配置说明
 
-将需要登陆主机得公钥添加到known_hosts
-
-```bash
-ssh-keyscan 192.168.77.129 192.168.77.130 >> /root/.ssh/known_hosts
-```
-
-还可以使用下列简单办法：
-ssh在首次连接出现检查keys 的提示，通过设置
-export ANSIBLE_HOST_KEY_CHECKING=False
-
-这样，在执行playbook时，就跳过这些提示。
-
 生成管理主机得私钥和公钥
 
 ```bash
@@ -46,5 +34,6 @@ ansible_ssh_pass密码如果一样的话，这里就不需要定义了。在运�
 运行playbook
 
 ```bash
+export ANSIBLE_HOST_KEY_CHECKING=False
 ansible-playbook -i hosts ssh-addkey.yml
 ```
