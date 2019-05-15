@@ -1,6 +1,2 @@
 _book
-.settings
-.project
-.classpath
-/.springBeans
-*target*
+node_modules/

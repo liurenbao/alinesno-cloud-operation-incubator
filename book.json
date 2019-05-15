@@ -1,5 +1,5 @@
 {
-    "title": "基础环境安装",
+    "title": "平台基线规划",
     "isbn": "978-3-16-148410-0",
     "language": "zh",
     "direction": "ltr",
@@ -16,9 +16,7 @@
         "anchors@^0.7.1",
         "splitter@^0.0.8",
         "tbfed-pagefooter@^0.0.1",
-        "expandable-chapters-small@^0.1.7",
-        "simple-page-toc",
-        "alerts"
+        "expandable-chapters-small@^0.1.7"
     ],
     "pluginsConfig": {
         "theme-default":{
@@ -26,18 +24,14 @@
 
         },
         "tbfed-pagefooter":{
-            "copyright":"Copyright gitbook.linesno.com 2018",
+            "copyright":"Copyright  ruheng.com 2017",
             "modify_label":"该文件修订时间：",
             "modify_format":"YYYY-MM-DD HH:mm:ss"
 
         },
         "edit-link":{
-            "base":"https://gitee.com/landonniao/linesno-cloud-env/blob/master",
-            "label":"编辑这个页面"
-        },
-        "simple-page-toc": {
-            "maxDepth": 3,
-            "skipFirstH1": true
+            "base":"https://github.com/LRH1993/android_interview/edit/master",
+            "label":"Edit This Page"
         }
     }
 }
