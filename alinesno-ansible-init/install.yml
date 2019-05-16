@@ -1,5 +1,5 @@
 - hosts: all
-  gather_facts: true
+  gather_facts: false
   vars :
     group: capinfo
     user:  capinfo
