@@ -5,6 +5,7 @@
     group: capinfo
     user:  capinfo
     password :  capinfo
+    ip: "{{ ansible_eth0['ipv4']['address'] }}"
   tasks:
     - name: install base soft
       yum: name=rsync,nfs-utils,net-tools,vim,tree,htop,iftop,iotop,lrzsz,sl,wget,unzip,telnet,nmap,nc,psmisc,dos2unix,bash-completion,iotop,iftop,sysstat,screen,zip state=installed
@@ -18,11 +19,6 @@
     - name: install rsync server
       yum: name=rsync,mailx state=installed
 
----
-- hosts: owner
-  vars:
-     ip: "{{ ansible_eth0['ipv4']['address'] }}"
-  tasks:
     - name: '将原有的hosts文件备份'
       shell: mv /etc/hosts /etc/hosts.bak
 
@@ -31,5 +27,4 @@
 
     - name: '在新的hosts文件后面追加各自机器内网ip和hostname'
       lineinfile: dest=/etc/hosts line="{{IP}}  {{hostname}}"
-
 
