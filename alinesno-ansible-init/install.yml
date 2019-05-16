@@ -7,16 +7,16 @@
     password :  capinfo
     ip: "{{ ansible_eth0['ipv4']['address'] }}"
   tasks:
-    - name: install base soft
+    - name: '安装基础软件'
       yum: name=rsync,nfs-utils,net-tools,vim,tree,htop,iftop,iotop,lrzsz,sl,wget,unzip,telnet,nmap,nc,psmisc,dos2unix,bash-completion,iotop,iftop,sysstat,screen,zip state=installed
 
-    - name: create group {{group}}
+    - name: '创建用户组{{group}}'
       group: name={{group}}
 
-    - name: create user {{user}}
+    - name: '创建用户{{user}}'
       user: name={{user}} password={{password}} create_home=yes shell=/bin/bash
 
-    - name: install rsync server
+    - name: '安装时间同步'
       yum: name=rsync,mailx state=installed
 
     - name: '将原有的hosts文件备份'
@@ -26,5 +26,5 @@
       copy: src=files/hosts dest=/etc/ owner=root group=root mode=0644
 
     - name: '在新的hosts文件后面追加各自机器内网ip和hostname'
-      lineinfile: dest=/etc/hosts line="{{IP}}  {{hostname}}"
+      lineinfile: dest=/etc/hosts line="{{ip}}  {{hostname}}"
 

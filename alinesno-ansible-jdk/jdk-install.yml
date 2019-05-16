@@ -1,18 +1,29 @@
 ---
 - hosts: all
+  vars :
+    file-path: /opt/files/
+    jdk-version: capinfo
   tasks:
-    - name: copy jdk remote hosts
+    - name: '复制jdk到远程机'
       copy: src=/root/jdk-8u171-linux-x64.tar dest=/root
-    - name: Decompressing files
+
+    - name: 'jdk解压'
       shell: chdir=/root tar xf jdk-8u171-linux-x64.tar
-    - name: create links
+
+    - name: '创建jdk软件链接'
       file: src=/root/jdk1.8.0_171 dest=/usr/local/java state=link
-    - name: java_profile config
+
+    - name: '配置/etc/profile'
       shell: /bin/echo {{ item  }} >> /etc/profile
       with_items:
         - export JAVA_HOME=/usr/local/java
         - export JRE_HOME=/usr/local/java/jre
         - export CLASSPATH=.:\$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:\$JRE_HOME/lib:\$CLASSPATH
         - export PATH=\$JAVA_HOME/bin:\$PATH
-        - name: take effect
-          shell: source /etc/profile
+
+    - name: '使/etc/profile生效'
+      shell: source /etc/profile
+
+    - name: '验证jdk安装'
+      shell: javac -version && java -version
+
