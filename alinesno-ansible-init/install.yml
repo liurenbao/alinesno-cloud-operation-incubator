@@ -1,7 +1,5 @@
 - hosts: all
-  gather_facts: false
-  user: root
-  sudo: yes
+  gather_facts: true
   vars :
     group: capinfo
     user:  capinfo
