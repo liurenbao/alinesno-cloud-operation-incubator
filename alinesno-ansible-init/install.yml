@@ -27,3 +27,8 @@
     - name: '在新的hosts文件后面追加各自机器内网ip和hostname'
       lineinfile: dest=/etc/hosts line="{{ip}}  {{hostname}}"
 
+    - name: '配置新的hostname'
+      shell : "echo {{hostname|quote}} > /etc/hostname"
+
+    - name: '检查hostname和hosts'
+      shell : "cat /etc/hostname && cat /etc/hosts"
