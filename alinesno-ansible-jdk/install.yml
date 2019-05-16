@@ -6,7 +6,7 @@
     JDK_VERSION: jdk-8u112-linux-x64
   tasks:
     - name: '复制jdk到远程机'
-      copy: src={{FILE_PATH}}/{{JDK_VERSION}}.tar.gz dest=/opt
+      copy: src={{FILE_PATH}}/{{JDK_VERSION}}.tar.gz dest=/opt force=no
 
     - name: '{{JDK_VERSION}}.tar.gz解压到目录:/opt/{{JDK_VERSION}}'
       unarchive: src=/opt/{{JDK_VERSION}}.tar.gz dest=/opt/{{JDK_VERSION}} copy=no list_files=yes
