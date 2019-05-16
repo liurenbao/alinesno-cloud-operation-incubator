@@ -17,3 +17,8 @@
     - name: install rsync server
       yum: name=rsync,mailx state=installed
 
+    - name: change name
+       raw: "echo {{hostname|quote}} > /etc/hostname"
+     - name:
+       shell: hostname {{hostname|quote}}
+
