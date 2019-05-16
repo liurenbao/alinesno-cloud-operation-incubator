@@ -20,10 +20,10 @@
       register: ps
 
     - name: '复制zoo.cfg配置'
-      copy: src=files/zoo.cfg dest=/opt/{{ZOOPKEEPER_VERSION}}/conf force=true
+      copy: src=files/zoo.cfg dest=/opt/{{ZOOPKEEPER_VERSION}}/conf copy=true force=true
 
     - name: '启动{{ZOOPKEEPER_VERSION}}'
-      shell: /opt/{{ZOOPKEEPER_VERSION}}/bin/zkServer.sh start
+      shell: /opt/{{ZOOPKEEPER_VERSION}}/bin/zkServer.sh restart
       register: ps
 
     - name: '查看{{ZOOPKEEPER_VERSION}}运行状态'
