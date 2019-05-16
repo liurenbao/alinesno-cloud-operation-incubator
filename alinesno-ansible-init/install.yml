@@ -1,0 +1,21 @@
+- hosts: all
+  gather_facts: false
+  user: root
+  sudo: yes
+  vars :
+    group: capinfo
+    user:  capinfo
+    password :  capinfo
+  tasks:
+    - name: install base soft
+      yum: name=rsync,nfs-utils,net-tools,vim,tree,htop,iftop,iotop,lrzsz,sl,wget,unzip,telnet,nmap,nc,psmisc,dos2unix,bash-completion,iotop,iftop,sysstat,screen,zip state=installed
+
+    - name: create group {{group}}
+      group: name={{group}}
+
+    - name: create user {{user}}
+      user: name={{user}} password={{password}} create_home=yes shell=/bin/bash
+
+    - name: install Rsync Server
+      yum: name=rsync,mailx state=installed
+
