@@ -2,7 +2,7 @@
 - hosts: baidu
   gather_facts: false
   vars :
-    FILE_PATH: /opt/files
+    FILE_PATH: /opt/soft
     ZOOPKEEPER_VERSION : zookeeper-3.4.6
   tasks:
     - name: '复制{{ZOOPKEEPER_VERSION}}.tar.gz到远程机'
@@ -19,10 +19,12 @@
       unarchive: src=/opt/{{ZOOPKEEPER_VERSION}}.tar.gz dest=/opt copy=no
       register: ps
 
+    - name: '复制zoo.cfg配置'
+      copy: src=files/zoo.cfg dest=/opt/{{ZOOPKEEPER_VERSION}} force=true
+
     - name: '启动{{ZOOPKEEPER_VERSION}}'
       shell: /opt/{{ZOOPKEEPER_VERSION}}/bin/zkServer.sh start
       register: ps
-
 
     - name: '查看{{ZOOPKEEPER_VERSION}}运行状态'
       shell: /opt/{{ZOOPKEEPER_VERSION}}/bin/zkServer.sh status

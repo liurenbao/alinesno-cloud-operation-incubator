@@ -2,7 +2,7 @@
 - hosts: aliyun
   gather_facts: false
   vars :
-    FILE_PATH: /opt/files
+    FILE_PATH: /opt/soft
     JDK_VERSION: jdk-8u112-linux-x64
   tasks:
     - name: '复制jdk到远程机'
