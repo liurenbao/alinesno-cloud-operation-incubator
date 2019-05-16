@@ -1,5 +1,6 @@
 ---
 - hosts: aliyun
+  gather_facts: false
   vars :
     FILE_PATH: /opt/files
     JDK_VERSION: jdk-8u112-linux-x64
@@ -8,7 +9,7 @@
       copy: src={{FILE_PATH}}/{{JDK_VERSION}}.tar.gz dest=/opt
 
     - name: '创建jdk解压目录'
-      shell: mkdir -p /opt/{{JDK_VERSION}}
+      file: path=/opt/{{JDK_VERSION}} state=directory
 
     - name: 'jdk解压'
       shell: tar zxvf {{JDK_VERSION}}.tar.gz -C /opt/{{JDK_VERSION}}

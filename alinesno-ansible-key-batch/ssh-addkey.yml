@@ -2,7 +2,7 @@
 - hosts: all
   gather_facts: no
   tasks:
-  - name: install ssh key
+  - name: '主机密钥分发'
     authorized_key: user=root
                     key="{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
                     state=present
