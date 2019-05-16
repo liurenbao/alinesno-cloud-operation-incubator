@@ -16,6 +16,6 @@
     - name: create user {{user}}
       user: name={{user}} password={{password}} create_home=yes shell=/bin/bash
 
-    - name: install Rsync Server
+    - name: install rsync server
       yum: name=rsync,mailx state=installed
 
