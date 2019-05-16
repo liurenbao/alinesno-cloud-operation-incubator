@@ -9,7 +9,7 @@
       copy: src={{FILE_PATH}}/{{JDK_VERSION}}.tar.gz dest=/opt
 
     - name: '{{JDK_VERSION}}.tar.gz解压到目录:/opt/{{JDK_VERSION}}'
-      unarchive: src=/opt/{{JDK_VERSION}}.tar.gz dest=/opt/{{JDK_VERSION}}
+      unarchive: src=/opt/{{JDK_VERSION}}.tar.gz dest=/opt/{{JDK_VERSION}} copy=no list_files=yes
 
     - name: '创建jdk软件链接'
       file: src=/opt/{{JDK_VERSION}} dest=/usr/local/java state=link

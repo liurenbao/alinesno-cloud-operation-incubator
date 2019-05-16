@@ -1,8 +1,15 @@
 ---
-- hosts: all
-  gather_facts: no
+- hosts: baidu
+  gather_facts: false
+  vars :
+    FILE_PATH: /opt/files
+    ZOOKEEPER_VERSION: zookeeper-3.4.6
   tasks:
-  - name: install ssh key
-    authorized_key: user=root
-                    key="{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
-                    state=present
+    - name: '{{ZOOPKEEPER_VERSION}}.tar.gz解压到目录:/opt/{{ZOOPKEEPER_VERSION}}'
+      unarchive: src=/opt/{{ZOOPKEEPER_VERSION}}.tar.gz dest=/opt/{{ZOOPKEEPER_VERSION}} copy=yes
+
+    - name: '启动{{ZOOPKEEPER_VERSION}}'
+      shell: /opt/{{ZOOPKEEPER_VERSION}}/bin/zkServer.sh start
+
+    - name: '查看{{ZOOPKEEPER_VERSION}}运行状态'
+      shell: /opt/{{ZOOPKEEPER_VERSION}}/bin/zkServer.sh status
