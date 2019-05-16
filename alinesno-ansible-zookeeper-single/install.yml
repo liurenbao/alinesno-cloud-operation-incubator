@@ -5,8 +5,11 @@
     FILE_PATH: /opt/files
     ZOOPKEEPER_VERSION : zookeeper-3.4.6
   tasks:
+    - name: '复制jdk到远程机'
+      copy: src={{FILE_PATH}}/{{ZOOPKEEPER_VERSION}}.tar.gz dest=/opt
+
     - name: '{{ZOOPKEEPER_VERSION}}.tar.gz解压到目录:/opt/{{ZOOPKEEPER_VERSION}}'
-      unarchive: src=/opt/{{ZOOPKEEPER_VERSION}}.tar.gz dest=/opt/{{ZOOPKEEPER_VERSION}} copy=yes
+      unarchive: src=/opt/{{ZOOPKEEPER_VERSION}}.tar.gz dest=/opt/{{ZOOPKEEPER_VERSION}} copy=no
 
     - name: '启动{{ZOOPKEEPER_VERSION}}'
       shell: /opt/{{ZOOPKEEPER_VERSION}}/bin/zkServer.sh start
