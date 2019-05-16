@@ -23,11 +23,11 @@
       copy: src=files/zoo.cfg dest=/opt/{{ZOOPKEEPER_VERSION}}/conf force=true
 
     - name: '启动{{ZOOPKEEPER_VERSION}}'
-      shell: /opt/{{ZOOPKEEPER_VERSION}}/bin/zkServer.sh restart
+      shell: sh /opt/{{ZOOPKEEPER_VERSION}}/bin/zkServer.sh restart
       register: ps
 
     - name: '查看{{ZOOPKEEPER_VERSION}}运行状态'
-      shell: /opt/{{ZOOPKEEPER_VERSION}}/bin/zkServer.sh status
+      shell: sh /opt/{{ZOOPKEEPER_VERSION}}/bin/zkServer.sh status
       register: ps
 
     # Print the shell task's stdout.
