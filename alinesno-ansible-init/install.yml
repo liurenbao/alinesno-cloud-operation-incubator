@@ -1,11 +1,10 @@
 ---
-- hosts: all
+- hosts: init-hosts
   gather_facts: false
   vars :
     group: capinfo
     user:  capinfo
     password :  capinfo
-    ip: "{{ ansible_eth0['ipv4']['address'] }}"
   tasks:
     - name: '安装基础软件'
       yum: name=rsync,nfs-utils,net-tools,vim,tree,htop,iftop,iotop,lrzsz,sl,wget,unzip,telnet,nmap,nc,psmisc,dos2unix,bash-completion,iotop,iftop,sysstat,screen,zip state=installed

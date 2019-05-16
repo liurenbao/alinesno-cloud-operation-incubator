@@ -1,17 +1,17 @@
 ---
 - hosts: all
   vars :
-    file-path: /opt/files/
-    jdk-version: capinfo
+    FILE_PATH: /opt/files
+    JDK_VERSION: jdk-8u112-linux-x64
   tasks:
     - name: '复制jdk到远程机'
-      copy: src=/root/jdk-8u171-linux-x64.tar dest=/root
+      copy: src={{FILE_PATH}}/{{JDK_VERSION}}.tar.gz dest=/opt
 
     - name: 'jdk解压'
-      shell: chdir=/root tar xf jdk-8u171-linux-x64.tar
+      shell: chdir=/opt tar zxvf {{JDK_VERSION}}.tar.gz
 
     - name: '创建jdk软件链接'
-      file: src=/root/jdk1.8.0_171 dest=/usr/local/java state=link
+      file: src=/opt/{{JDK_VERSION}} dest=/usr/local/java state=link
 
     - name: '配置/etc/profile'
       shell: /bin/echo {{ item  }} >> /etc/profile
