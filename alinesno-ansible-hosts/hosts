@@ -1,5 +1,12 @@
 # hosts
 # =================================== my host =========================
+[owner]
+106.13.110.24  hostname=baidu-01
+106.13.109.193 hostname=baidu-02
+47.92.200.241  hostname=aliyun-01
+47.92.68.183   hostname=aliyun-02
+47.92.51.130   hostname=aliyun-03
+
 [baidu]
 106.13.110.24
 106.13.109.193
