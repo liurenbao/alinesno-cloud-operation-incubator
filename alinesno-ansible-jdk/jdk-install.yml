@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: aliyun
   vars :
     FILE_PATH: /opt/files
     JDK_VERSION: jdk-8u112-linux-x64
