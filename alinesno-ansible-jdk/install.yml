@@ -8,11 +8,8 @@
     - name: '复制jdk到远程机'
       copy: src={{FILE_PATH}}/{{JDK_VERSION}}.tar.gz dest=/opt
 
-    - name: '创建jdk解压目录'
-      file: path=/opt/{{JDK_VERSION}} state=directory
-
-    - name: 'jdk解压'
-      shell: tar zxvf {{JDK_VERSION}}.tar.gz -C /opt/{{JDK_VERSION}}
+    - name: '{{JDK_VERSION}}.tar.gz解压到目录:/opt/{{JDK_VERSION}}'
+      unarchive: src=/opt/{{JDK_VERSION}}.tar.gz dest=/opt/{{JDK_VERSION}}
 
     - name: '创建jdk软件链接'
       file: src=/opt/{{JDK_VERSION}} dest=/usr/local/java state=link
