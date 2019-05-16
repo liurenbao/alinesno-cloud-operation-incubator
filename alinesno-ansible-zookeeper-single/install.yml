@@ -8,6 +8,13 @@
     - name: '复制{{ZOOPKEEPER_VERSION}}.tar.gz到远程机'
       copy: src={{FILE_PATH}}/{{ZOOPKEEPER_VERSION}}.tar.gz dest=/opt
 
+    - name: '创建/opt/{{ZOOPKEEPER_VERSION}}'
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - /opt/{{ZOOPKEEPER_VERSION}}
+
     - name: '{{ZOOPKEEPER_VERSION}}.tar.gz解压到目录:/opt/{{ZOOPKEEPER_VERSION}}'
       unarchive: src=/opt/{{ZOOPKEEPER_VERSION}}.tar.gz dest=/opt/{{ZOOPKEEPER_VERSION}} copy=no
 
