@@ -31,4 +31,5 @@
       register: ps
 
     # Print the shell task's stdout.
-    - debug: msg={{ ps.stdout }}
+    - debug:
+        msg: "{{ ps.results | json_query('[].stdout_lines[]') }}"
