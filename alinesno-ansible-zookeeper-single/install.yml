@@ -1,5 +1,5 @@
 ---
-- hosts: baidu
+- hosts: aliyun
   gather_facts: false
   vars :
     FILE_PATH: /opt/soft
