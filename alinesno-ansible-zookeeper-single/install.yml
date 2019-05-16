@@ -20,7 +20,7 @@
       register: ps
 
     - name: '复制zoo.cfg配置'
-      copy: src=files/zoo.cfg dest=/opt/{{ZOOPKEEPER_VERSION}} force=true
+      copy: src=files/zoo.cfg dest=/opt/{{ZOOPKEEPER_VERSION}}/conf force=true
 
     - name: '启动{{ZOOPKEEPER_VERSION}}'
       shell: /opt/{{ZOOPKEEPER_VERSION}}/bin/zkServer.sh start
