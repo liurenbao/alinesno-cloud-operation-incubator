@@ -5,6 +5,7 @@
 106.13.43.111 ansible_ssh_pass=LuoAnDong@123
 
 [aliyun]
+115.28.233.17 ansible_ssh_pass=LuoAnDong@Switch
 47.92.200.241 ansible_ssh_pass=LuoAnDong@Switch
 47.92.68.183 ansible_ssh_pass=LuoAnDong@Switch
 47.92.51.130 ansible_ssh_pass=LuoAnDong@Switch
