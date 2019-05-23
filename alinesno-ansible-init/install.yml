@@ -12,7 +12,7 @@
     - name: '创建用户组{{group}}'
       group: name={{group}}
 
-    - name: '创建用户{{user}}'
+    - name: '创建用户alinesno'
       user: name=alinesno password=alinesno1234qwer create_home=yes shell=/bin/bash
       state: present
 
