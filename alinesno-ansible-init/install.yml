@@ -13,7 +13,7 @@
       group: name={{group}}
 
     - name: '创建用户{{user}}'
-      user: name={{user}} password={{password}} create_home=yes shell=/bin/bash
+      user: name={{user}} password={{password}} create_home=yes shell=/bin/bash state=present
 
     - name: '安装时间同步'
       yum: name=rsync,mailx state=installed
