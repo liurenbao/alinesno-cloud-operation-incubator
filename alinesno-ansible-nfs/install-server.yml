@@ -21,14 +21,14 @@
     
   - name: '创建{{NFS-DATA-PATH}}数据目标'
     file:
-      path: {{NFS-DATA-PATH}}
+      path: "{{NFS-DATA-PATH}}"
       state: directory
       owner: nfsnobody
       group: nfsnobody
     
   - name: '创建{{NFS-DATA-PATH}}数据目录'
     copy: 
-      content: '#share {{NFS-DATA-PATH}} 47.92.0.0/24\n{{NFS-DATA-PATH}} 47.92.0.0/24(rw,sync)'
+      content: '#share "{{NFS-DATA-PATH}}" 47.92.0.0/24\n "{{NFS-DATA-PATH}}" 47.92.0.0/24(rw,sync)'
       dest: /etc/exports
       
   - name: '重启nfs'
