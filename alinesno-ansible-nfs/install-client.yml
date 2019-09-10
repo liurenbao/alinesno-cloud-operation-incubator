@@ -1,6 +1,7 @@
+---
 - hosts: 47.92.68.183
   vars:
-    NFS-UPLOAD-PATH: /upload
+    NFS_UPLOAD_PATH: /upload
   tasks:
   - name: '安装最新的同步工具达到最新版本'
     yum:
@@ -19,12 +20,12 @@
       state: stoped
       enabled: no
       
-  - name: '创建{{NFS-UPLOAD-PATH}}目录 '
+  - name: '创建{{NFS_UPLOAD_PATH}}目录 '
     file:
-      path: "{{NFS-UPLOAD-PATH}}"
+      path: "{{NFS_UPLOAD_PATH}}"
       state: directory
       
-  - name: '挂载{{NFS-UPLOAD-PATH}}目录 '
+  - name: '挂载{{NFS_UPLOAD_PATH}}目录 '
     mount:
     path: /mnt/dvd
     src: /dev/sr0
