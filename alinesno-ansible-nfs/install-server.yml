@@ -1,0 +1,40 @@
+- hosts: 47.92.200.241
+  vars:
+    NFS-DATA-PATH: /data
+  tasks:
+  - name: '安装最新的同步工具达到最新版本'
+    yum:
+      name: nfs-utils,rpcbind
+      state: latest
+  
+  - name: '运行rpcbind'
+    service:
+      name: rpcbind
+      state: started
+      enabled: yes
+      
+  - name: '运行nfs'
+    service:
+      name: nfs
+      state: started
+      enabled: yes
+    
+  - name: '创建{{NFS-DATA-PATH}}数据目标'
+    file:
+      path: {{NFS-DATA-PATH}}
+      state: directory
+      owner: nfsnobody
+      group: nfsnobody
+    
+  - name: '创建{{NFS-DATA-PATH}}数据目录'
+    copy: 
+      content: '#share {{NFS-DATA-PATH}} 47.92.0.0/24\n{{NFS-DATA-PATH}} 47.92.0.0/24(rw,sync)'
+      dest: /etc/exports
+      
+  - name: '重启nfs'
+    service:
+      name: nfs
+      state: reloaded
+      
+  - name: '测试nfs'
+    shell: rpcinfo -p 47.92.68.183;showmount -e 47.92.68.183
