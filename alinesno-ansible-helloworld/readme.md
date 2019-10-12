@@ -9,15 +9,11 @@ ssh-keygen -t rsa -b 2048 -P '' -f /root/.ssh/id_rsa
 添加主机信息到主机清单中
 
 ```properties
-[local]  // 本地主机形式
-127.0.0.1   ansible_connection=local
-
 # hosts
 [web]
 192.168.77.129 ansible_ssh_pass=1234567
 192.168.77.130 ansible_ssh_pass=123456
 ```
-
 
 ansible_ssh_pass密码如果一样的话，这里就不需要定义了。在运行ansible-playbook时 加上-k参数，就可以输入登陆密码
 

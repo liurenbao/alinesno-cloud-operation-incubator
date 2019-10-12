@@ -1,0 +1,79 @@
+---
+- hosts: all
+  gather_facts: false
+  become: yes
+  become_user: root
+  become_method: su
+  vars :
+    group: capinfo
+    user:  capinfo
+    password :  capinfo
+  tasks:
+    - name: '安装外源软件'
+      yum: name=epel-release state=installed
+
+    - name: '安装Centos7基础依赖包'
+      yum: name={{ item }} state=installed
+      with_items:
+        - gcc-c++
+        - glibc
+        - glibc-devel
+        - glib2
+        - glib2-devel
+        - pcre
+        - pcre-devel
+        - zlib
+        - zlib-devel
+        - openssl
+        - openssl-devel
+        - libpng
+        - libpng-devel
+        - freetype
+        - freetype-devel
+        - libxml2
+        - libxml2-devel
+        - bzip2
+        - bzip2-devel
+        - ncurses
+        - curl
+        - gdbm-devel
+        - libXpm-devel
+        - libX11-devel
+        - gd-devel
+        - gmp-devel
+        - readline-devel
+        - libxslt-devel
+        - expat-devel
+        - xmlrpc-c
+        - libcurl-devel
+
+    - name: '安装基础软件'
+      yum: name=epel-release,rsync,nfs-utils,net-tools,vim,tree,iotop,lrzsz,wget,unzip,telnet,nmap,nc,psmisc,dos2unix,bash-completion,iotop,sysstat,screen,zip,htop,glances,vim state=installed
+      register: out
+
+    - name: '安装时间同步'
+      yum: name=ntp,ntpdate,rsync,mailx state=installed
+
+    # - name: '设置时间同步'
+      # shell: "ntpdate cn.ntp.org.cn"
+
+    - name: '设置NTP开机自启动'
+      shell: systemctl enable ntpd.service
+
+    - name: '启动NTP'
+      shell: systemctl start ntpd.service
+
+    - name: '将原有的hosts文件备份'
+      shell: mv /etc/hosts /etc/hosts.bak
+
+    - name: '将ansible端的hosts复制到各自机器上'
+      copy: src=files/hosts dest=/etc/ owner=root group=root mode=0644
+
+    - name: '在新的hosts文件后面追加各自机器内网ip和hostname'
+      lineinfile: dest=/etc/hosts line="{{ip}}  {{hostname}}"
+
+    - name: '配置新的hostname'
+      shell : "echo {{hostname|quote}} > /etc/hostname"
+
+    - name: '检查hostname和hosts'
+      shell : "cat /etc/hostname && cat /etc/hosts"

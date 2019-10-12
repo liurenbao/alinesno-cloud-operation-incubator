@@ -1,5 +1,5 @@
 # bak hosts
-ansible all -m ping
+ansible all  -i ~/.ansible/hosts -m ping
 
 # echo helloworld
-ansible all -a "/bin/echo helloworld"
+ansible all -i ~/.ansible/hosts -a "/bin/echo 'ansible hello world!'"
