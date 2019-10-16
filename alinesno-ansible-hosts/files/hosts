@@ -1,28 +1,16 @@
 # hosts
-# =================================== my host =========================
-[gz-dev]
+# =================================== my host =========================	
+[developer]
 192.168.1.62 ip=192.168.1.62 hostname=alinesno-host-192.168.1.62 ansible_ssh_pass=alinesno123$%^62 ansible_su_pass=alinesno123$%^62
 192.168.1.63 ip=192.168.1.63 hostname=alinesno-host-192.168.1.63 ansible_ssh_pass=alinesno123$%^63 ansible_su_pass=alinesno123$%^63
-192.168.1.64 ip=192.168.1.64 hostname=alinesno-host-192.168.1.64 ansible_ssh_pass=alinesno123$%^64 ansible_su_pass=alinesno123$%^64
-192.168.1.65 ip=192.168.1.65 hostname=alinesno-host-192.168.1.65 ansible_ssh_pass=alinesno123$%^65 ansible_su_pass=alinesno123$%^65
-192.168.1.66 ip=192.168.1.66 hostname=alinesno-host-192.168.1.66 ansible_ssh_pass=alinesno123$%^66 ansible_su_pass=alinesno123$%^66
-192.168.1.67 ip=192.168.1.67 hostname=alinesno-host-192.168.1.67 ansible_ssh_pass=alinesno123$%^67 ansible_su_pass=alinesno123$%^67
-192.168.1.68 ip=192.168.1.68 hostname=alinesno-host-192.168.1.68 ansible_ssh_pass=alinesno123$%^68 ansible_su_pass=alinesno123$%^68
-192.168.1.69 ip=192.168.1.69 hostname=alinesno-host-192.168.1.69 ansible_ssh_pass=alinesno123$%^69 ansible_su_pass=alinesno123$%^69
-192.168.1.70 ip=192.168.1.70 hostname=alinesno-host-192.168.1.70 ansible_ssh_pass=alinesno123$%^70 ansible_su_pass=alinesno123$%^70
 
 [devops]
-192.168.1.75 ip=192.168.1.75 hostname=alinesno-host-192.168.1.75 ansible_ssh_pass=alinesno123$%^75 ansible_su_pass=alinesno123$%^75
-192.168.1.76 ip=192.168.1.76 hostname=alinesno-host-192.168.1.76 ansible_ssh_pass=alinesno123$%^76 ansible_su_pass=alinesno123$%^76
-192.168.1.77 ip=192.168.1.77 hostname=alinesno-host-192.168.1.77 ansible_ssh_pass=alinesno123$%^77 ansible_su_pass=alinesno123$%^77
-192.168.1.78 ip=192.168.1.78 hostname=alinesno-host-192.168.1.78 ansible_ssh_pass=alinesno123$%^78 ansible_su_pass=alinesno123$%^78
-192.168.1.79 ip=192.168.1.79 hostname=alinesno-host-192.168.1.79 ansible_ssh_pass=alinesno123$%^79 ansible_su_pass=alinesno123$%^79
-192.168.1.80 ip=192.168.1.80 hostname=alinesno-host-192.168.1.80 ansible_ssh_pass=alinesno123$%^80 ansible_su_pass=alinesno123$%^80
-192.168.1.81 ip=192.168.1.81 hostname=alinesno-host-192.168.1.81 ansible_ssh_pass=alinesno123$%^81 ansible_su_pass=alinesno123$%^81
-192.168.1.82 ip=192.168.1.82 hostname=alinesno-host-192.168.1.82 ansible_ssh_pass=alinesno123$%^82 ansible_su_pass=alinesno123$%^82
-192.168.1.83 ip=192.168.1.83 hostname=alinesno-host-192.168.1.83 ansible_ssh_pass=alinesno123$%^83 ansible_su_pass=alinesno123$%^83
+119.23.247.48 ip=119.23.247.48 hostname=alinesno-host-119.23.247.48 ansible_ssh_pass=alinesno123$%^75 ansible_su_pass=alinesno123$%^75
 
-[nn-dev]
+[docker]
+119.23.247.48 ip=119.23.247.48 hostname=alinesno-host-119.23.247.48 ansible_ssh_pass=LuoAnDong@Switch ansible_su_pass=LuoAnDong@Switch
+
+[test]
 192.168.1.150 ip=192.168.1.150 hostname=alinesno-host-192.168.1.150 ansible_ssh_pass=alinesno123$%^150 ansible_su_pass=alinesno123$%^150
 192.168.1.151 ip=192.168.1.151 hostname=alinesno-host-192.168.1.151 ansible_ssh_pass=alinesno123$%^151 ansible_su_pass=alinesno123$%^151
 192.168.1.152 ip=192.168.1.152 hostname=alinesno-host-192.168.1.152 ansible_ssh_pass=alinesno123$%^152 ansible_su_pass=alinesno123$%^152
@@ -33,17 +21,4 @@
 192.168.1.157 ip=192.168.1.157 hostname=alinesno-host-192.168.1.157 ansible_ssh_pass=alinesno123$%^157 ansible_su_pass=alinesno123$%^157
 192.168.1.158 ip=192.168.1.158 hostname=alinesno-host-192.168.1.158 ansible_ssh_pass=alinesno123$%^158 ansible_su_pass=alinesno123$%^158
 192.168.1.159 ip=192.168.1.159 hostname=alinesno-host-192.168.1.159 ansible_ssh_pass=alinesno123$%^159 ansible_su_pass=alinesno123$%^159
-
-[test]
-192.168.1.104 ip=192.168.1.104 hostname=alinesno-host-192.168.1.104 ansible_ssh_pass=alinesno123$%^104 ansible_su_pass=alinesno123$%^104
-192.168.1.106 ip=192.168.1.106 hostname=alinesno-host-192.168.1.106 ansible_ssh_pass=alinesno123$%^106 ansible_su_pass=alinesno123$%^106
-192.168.1.107 ip=192.168.1.107 hostname=alinesno-host-192.168.1.107 ansible_ssh_pass=alinesno123$%^107 ansible_su_pass=alinesno123$%^107
-192.168.1.108 ip=192.168.1.108 hostname=alinesno-host-192.168.1.108 ansible_ssh_pass=alinesno123$%^108 ansible_su_pass=alinesno123$%^108
-192.168.1.109 ip=192.168.1.109 hostname=alinesno-host-192.168.1.109 ansible_ssh_pass=alinesno123$%^109 ansible_su_pass=alinesno123$%^109
-192.168.1.111 ip=192.168.1.111 hostname=alinesno-host-192.168.1.111 ansible_ssh_pass=alinesno123$%^111 ansible_su_pass=alinesno123$%^111
-192.168.1.112 ip=192.168.1.112 hostname=alinesno-host-192.168.1.112 ansible_ssh_pass=alinesno123$%^112 ansible_su_pass=alinesno123$%^112
-192.168.1.113 ip=192.168.1.113 hostname=alinesno-host-192.168.1.113 ansible_ssh_pass=alinesno123$%^113 ansible_su_pass=alinesno123$%^113
-192.168.1.114 ip=192.168.1.114 hostname=alinesno-host-192.168.1.114 ansible_ssh_pass=alinesno123$%^114 ansible_su_pass=alinesno123$%^114
-192.168.1.115 ip=192.168.1.115 hostname=alinesno-host-192.168.1.115 ansible_ssh_pass=alinesno123$%^115 ansible_su_pass=alinesno123$%^115
-192.168.1.116 ip=192.168.1.116 hostname=alinesno-host-192.168.1.116 ansible_ssh_pass=alinesno123$%^116 ansible_su_pass=alinesno123$%^116
 
