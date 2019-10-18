@@ -1,5 +1,6 @@
 ansible一次性安装devops环境
 
+```shell
 (ansible_venv) [root@localhost ansible_home]# tree ansible_playbooks/
 ansible_playbooks/
 └── roles  必须叫roles
@@ -33,3 +34,4 @@ ansible_playbooks/
         ├── templates
         │   └── nginx.conf.j2
         └── vars
+```
