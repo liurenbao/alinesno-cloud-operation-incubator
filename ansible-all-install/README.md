@@ -1,1 +1,1 @@
-ansible自动安装
+ansible一次性安装devops环境
