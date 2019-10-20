@@ -1,0 +1,4 @@
+- hosts:
+  - all
+  roles:
+  - { role: chrony, when: "groups['chrony']|length > 0" }

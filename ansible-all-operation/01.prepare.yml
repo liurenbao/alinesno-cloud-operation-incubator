@@ -1,0 +1,23 @@
+# [optional] to synchronize system time of nodes with 'chrony'
+- hosts:
+  - jenkins
+  - nexus
+  - mysql
+  - gitlab
+  - redis
+  - chrony
+  roles:
+  - { role: chrony, when: "groups['chrony']|length > 0" }
+
+# 用于部署本地服务或者在本地生成的操作.
+- hosts: localhost
+  roles:
+  - deploy
+
+# prepare tasks for all nodes
+- hosts:
+  - kube-master
+  - kube-node
+  - etcd
+  roles:
+  - prepare
