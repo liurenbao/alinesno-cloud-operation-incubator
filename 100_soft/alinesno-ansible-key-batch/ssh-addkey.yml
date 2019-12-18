@@ -1,8 +1,0 @@
----
-- hosts: all
-  gather_facts: no
-  tasks:
-  - name: '主机密钥分发'
-    authorized_key: user=capinfo
-                    key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
-                    state=present

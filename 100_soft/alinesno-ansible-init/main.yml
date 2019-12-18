@@ -1,9 +1,0 @@
-- include: task/install-jdk.yml
-- include: task/install-mariadb.yml
-- include: task/install-git.yml
-- include: task/install-svn.yml
-- include: task/install-jenkins.yml
-- include: task/install-zookeeper.yml
-- include: task/install-redis.yml
-- include: task/install-kafka.yml
-- include: task/install-nexus.yml

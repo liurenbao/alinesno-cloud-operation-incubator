@@ -1,8 +1,0 @@
-# 批量分发ssh公钥
-- hosts: all 
-  user: root
-  tasks:
-    - name: ssh-key-copy
-      authorized_key: user=root key="{{ lookup('file','/root/.ssh/id_rsa.pub')}}"
-      tags:
-        - sshkey
