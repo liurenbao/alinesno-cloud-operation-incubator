@@ -1,0 +1,29 @@
+# Generate random password for new_user_name and the new_user_name
+# is required to change his/her password on first logon.
+
+- name: Generate password for new user
+  shell: command openssl rand -base64 6
+  register: user_password
+
+- name: Generate encrypted password for new user
+  shell: command openssl passwd -salt '2018model' -1 {{ user_password.stdout }}
+  register: encrypted_user_password
+
+- name: Create user account
+  user:
+      name: "{{ new_user_name }}"
+      password: "{{ encrypted_user_password.stdout }}"
+      # groups: "sudo,admin,{{ new_user_name }}"
+      shell: /bin/bash
+      update_password: on_create
+      state: present
+  when: new_user_name is defined
+  register: user_created
+
+- name: Force user to change password
+  shell: chage -d 0 {{ new_user_name }}
+  when: user_created.changed
+
+- name: User created
+  debug: msg="Password for {{ new_user_name }} is {{ user_password.stdout }}"
+  when: user_created.changed

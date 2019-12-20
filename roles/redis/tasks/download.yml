@@ -1,0 +1,15 @@
+---
+
+# Redis uses a mix of sha1 and sha256 checksums.
+# Determine the type of checksum based on its length and prefix the variable appropriately
+- name: download redis
+  get_url:
+    url: "{{ redis_download_url }}"
+    dest: /usr/local/src/redis-{{ redis_version }}.tar.gz
+
+- name: extract redis tarball
+  unarchive:
+    src: /usr/local/src/redis-{{ redis_version }}.tar.gz
+    dest: /usr/local/src
+    creates: /usr/local/src/redis-{{ redis_version }}/Makefile
+    copy: no

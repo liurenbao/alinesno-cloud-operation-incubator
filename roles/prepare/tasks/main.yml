@@ -1,9 +1,11 @@
 # 系统基础软件环境
 - import_tasks: centos.yml
-  when: 'ansible_distribution in ["CentOS","RedHat","Amazon"]'
 
 # 公共系统参数设置
 - import_tasks: common.yml
+
+# 添加用户
+- import_tasks: user.yml
 
 # - name: 初始化目录
   # file: name={{ item }} state=directory
