@@ -1,0 +1,9 @@
+# [optional] to synchronize system time of nodes with 'chrony'
+- hosts:
+  - test
+  remote_user: root
+  gather_facts: true
+  ignore_errors: no
+  roles:
+    - { role: keepalived, keepalived_shared_ip: "192.168.1.1", keepalived_role: "master" }
+    - { role: keepalived, keepalived_shared_ip: "192.168.1.1", keepalived_role: "slave" }

@@ -1,0 +1,32 @@
+- name: nfs-common installed
+  yum :  pkg=nfs-common state=latest
+
+- name: autofs installed
+  yum : pkg=autofs state=latest
+
+- name: quarantine fstab
+  mount:  src="cicss01:/quarantine" name=/opt/quarantine fstype=nfs  opts="vers=4,rw,nodev,hard,intr,hard,intr,sloppy,async"  state=mounted
+
+- name: scratch fstab nfs4
+  mount:  src="cicss01:/scratch" name=/scratch fstype=nfs opts="vers=4,rw,nodev,hard,intr,hard,intr,sloppy,async"  state=mounted
+
+- name: create place for homdirs
+  file: path=/home-remote state=directory
+
+- name : setup auto.master
+  copy: src=auto.master dest=/etc/auto.master
+  notify: restart autofs
+
+- name: setup auto.home
+  copy: src=auto.home dest=/etc/auto.home
+  notify: restart autofs
+
+- name: create symlink
+  file: src=/home-remote/cic dest=/home/cic state=link
+
+- name: setup /data
+  copy: src=auto.data dest=/etc/auto.data
+  notify: restart autofs
+
+- name: configure nfs-common
+  copy: src=nfs-common dest=/etc/default/nfs-common

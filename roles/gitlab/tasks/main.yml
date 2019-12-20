@@ -1,0 +1,33 @@
+---
+- include_tasks: common.yml
+
+- name: Download gitlab repo RedHat-like
+  get_url: url=https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh dest=/usr/src/gitlab.rpm.sh mode=0755 validate_certs=no
+  when: ansible_os_family == "RedHat"
+
+- name: Install gitlab repo RedHat-Like
+  shell: /usr/src/gitlab.rpm.sh
+  when: ansible_os_family == "RedHat"
+
+- name: Install gitlab RedHat-Like
+  yum: name=gitlab-ce state=latest
+  notify: configure gitlab
+  when: ansible_os_family == "RedHat"
+
+- name: Download gitlab repo Debian-Like
+  get_url: url=https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh dest=/usr/src/gitlab.deb.sh mode=0755 validate_certs=no
+  when: ansible_os_family == "Debian"
+
+- name: Install gitlab repo Debian-Like
+  shell: /usr/src/gitlab.deb.sh
+  when: ansible_os_family == "Debian"
+
+- name: Install gitlab Debian-Like
+  apt: name=gitlab-ce state=latest
+  notify: configure gitlab
+  when: ansible_os_family == "Debian"
+
+- name: Copy template (for AD)
+  template: src=gitlab.rb.j2 dest=/etc/gitlab/gitlab.rb owner=root group=root mode=0600
+  notify: configure gitlab
+  when: gitlab_ad

@@ -7,7 +7,7 @@
 | 01.prepare.yml           | 初始软件,时间同步，hostname等                | Switch | 集成 |                  |
 | 02.jdk.yml               | 操作jdk                                      | Switch | 集成 |                  |
 | 03.mysql.yml             | 操作mysql                                    | Switch | 集成 |                  |
-| 04.gitlab.yml            | 操作gitlab                                   | Switch |      |                  |
+| 04.gitlab.yml            | 操作gitlab                                   | Switch | 集成 |                  |
 | 05.svnadmin.yml          | 操作svnadmin                                 | Switch |      |                  |
 | 06.nginx.yml             | 操作nginx                                    | Switch | 集成 |                  |
 | 07.nexus.yml             | 操作nexus2                                   | Switch | 集成 |                  |
@@ -22,24 +22,24 @@
 | 16.harbor.yml            | 操作harbor                                   | Switch | 集成 |                  |
 | 17.kafka.yml             | 操作kafka(集群和单点)                        | Switch | 集成 |                  |
 | 18.redis.yml             | 操作redis(集群和单点)                        | Switch | 集成 |                  |
-| 19.nfs.yml               | 操作nfs                                      | Switch |      |                  |
-| 20.mongodb.yml           | 操作mongodb                                  | Switch |      |                  |
+| 19.nfs.yml               | 操作nfs                                      | Switch | 集成 |                  |
+| 20.mongodb.yml           | 操作mongodb                                  | Switch | 集成 |                  |
 | 21.backup.yml            | 文件备份(数据库/文件等)                      | Switch |      |                  |
 | 22.monitor.yml           | 服务器监控(内存/硬盘/端口/socket等)          | Switch |      |                  |
-| 23.docker.yml            | 操作docker(配置好国内服务)                   | Switch |      |                  |
+| 23.docker.yml            | 操作docker(配置好国内服务)                   | Switch | 集成 |                  |
 | 24.elk.yml               | 操作elk                                      | Switch |      |                  |
 | 25.zookeeper.yml         | 操作zookeepre(集群和单点)                    | Switch | 集成 |                  |
 | 26.yapi.yml              | 操作yapi接口测试                             | Switch |      |                  |
 | 27.kong.yml              | 操作kong(同步安装界面akong)                  | Switch |      |                  |
 | 28.zabbix.yml            | 操作zabbix和agent                            | Switch |      |                  |
-| 29.nodejs.yml            | 操作nodejs(并配置国内链接)                   | Switch |      |                  |
-| 30.haproxy.yml           | 操作haproxy                                  | Switch |      |                  |
+| 29.nodejs.yml            | 操作nodejs(并配置国内链接)                   | Switch | 集成 |                  |
+| 30.haproxy.yml           | 操作haproxy                                  | Switch | 集成 |                  |
 | 31.jumpserver.yml        | 操作jumpserver(堡垒机)                       | Switch |      |                  |
-| 32.tomcat.yml            | 操作tomcat(端口/启动和关闭脚本/优化)         | Switch |      |                  |
+| 32.tomcat.yml            | 操作tomcat(端口/启动和关闭脚本/优化)         | Switch | 集成 |                  |
 | 33.showdoc.yml           | 操作开发文档工具                             | Switch |      |                  |
 | 33.k8s.yml               | 操作k8s                                      | Switch |      | 集成开源工具     |
 | 34.portainer.yml         | 操作portainer                                | Switch |      |                  |
-| 35.keepalive.yml         | 操作keepalive(主备)                          | Switch |      |                  |
+| 35.keepalived.yml        | 操作keepalive(主备)                          | Switch | 集成 |                  |
 | download.sh              | 软件下载脚本(如jdk/mysql)                    | Switch |      |                  |
 | operation-tool.sh        | 常用的运维工具(生成密钥)                     | Switch |      |                  |
 | operation.sh             | 常用的脚本                                   | Switch |      |                  |
