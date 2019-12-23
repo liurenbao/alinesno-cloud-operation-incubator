@@ -1,0 +1,11 @@
+---
+# defaults file for ansible-zipkin
+zipkin_home: '/opt/zipkin'
+zipkin_user: 'zipkin'
+zipkin_version: '1.8.1'
+zipkin_db_name: 'zipkin'
+zipkin_db_user: 'zipkin'
+zipkin_db_password: 'zipkinpwd'
+zipkin_scribe_port: 9410
+zipkin_api_port: 9411
+zipkin_web_port: 9412

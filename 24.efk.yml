@@ -1,0 +1,29 @@
+---
+#
+# Playbook to install the ELK or EFK stack
+#
+# versions:
+#  - 2.4 (git branch 2.4)
+#  - 5.6 (git branch 5.6)
+#  - 6.8 (git branch master)
+# vars_files:
+# - group_vars/all.yml
+
+- hosts: test
+  remote_user: root
+  gather_facts: true
+  ignore_errors: no
+  roles:
+    - { role: elasticsearch }
+    - { role: filebeat }
+    - { role: kibana }
+
+    # - { role: logstash, when: ((logging_backend is none) or (logging_backend == 'logstash')) }
+    # - { role: fluentd, when: (logging_backend == 'fluentd') }
+    # - { role: nginx, when: (apache_reverse_proxy is none) }
+    # - { role: apache, when: apache_reverse_proxy|bool }
+    # - { role: curator, when: install_curator_tool|bool }
+    # - { role: xpack, when: ((install_elasticsearch_xpack|bool) or (install_kibana_xpack|bool) or (install_logstash_xpack|bool)) }
+    # - { role: firewall, when: manage_firewall|bool }
+    # - { role: instructions }
+

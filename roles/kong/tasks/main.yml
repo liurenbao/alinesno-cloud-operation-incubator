@@ -1,0 +1,32 @@
+---
+- name: Download deb
+  get_url: url={{ kong_source_deb }} dest={{ kong_working_dir }}/kong.deb mode=0600
+
+- name: Install dependencies
+  apt: pkg={{ item }} state=installed
+  with_items: kong_dependencies
+
+- name: Install deb
+  apt: deb={{ kong_working_dir }}/kong.deb
+
+- name: Ensure kong group is present
+  user: name={{ kong_group }} state=present
+
+- name: Ensure kong user is present
+  user: name={{ kong_user }} group={{ kong_group }}
+
+- name: Setup configuration
+  template: src=etc/kong.yml.j2 dest="{{ kong_conf_dest }}"
+  notify:
+   - reload kong
+
+- name: Ensure log service directory exists
+  file: path="{{ kong_service_log_dir }}" state=directory owner="{{ kong_user }}" group="{{ kong_group }}" mode=0755
+
+- name: Setup init.d script
+  template: src=etc/kong.init.d.j2 dest="/etc/init.d/kong" mode="u=rwx,g=rx,o=rx"
+  notify:
+   - restart kong
+
+- name: Setup service
+  service: name=kong state={{ kong_service_state }} enabled={{ kong_service_enabled }}

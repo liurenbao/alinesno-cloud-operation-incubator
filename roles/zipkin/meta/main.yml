@@ -1,0 +1,28 @@
+galaxy_info:
+  author: unitedtraders
+  description: Role for installing dockerized Zipkin <http://zipkin.io>
+  company: United Traders
+
+  license: BSD
+
+  min_ansible_version: 2.0
+
+  platforms:
+  - name: EL
+    versions:
+    - 7
+  - name: Fedora
+    versions:
+    - 23
+  - name: Ubuntu
+    versions:
+    - wily
+    - xenial
+  - name: Debian
+    versions:
+    - jessie
+
+  galaxy_tags:
+    - zipkin
+
+dependencies: []

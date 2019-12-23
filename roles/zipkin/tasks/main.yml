@@ -1,0 +1,30 @@
+---
+# tasks file for zipkin
+- name: create zipkin user
+  user: name={{ zipkin_user }}
+
+- name: create zipkin data dirs
+  file: state=directory path={{ item }} owner={{ zipkin_user }} recurse=true
+  with_items:
+    - "{{ zipkin_home }}/data/mysql"
+    - "{{ zipkin_home }}/data/initmysql"
+
+- name: download zipkin db schema
+  get_url:
+    url: "https://raw.githubusercontent.com/openzipkin/zipkin/{{ zipkin_version }}/zipkin-storage/mysql/src/main/resources/mysql.sql"
+    dest: "{{ zipkin_home }}/data/initmysql/zipkin.schema"
+    owner: "{{ zipkin_user }}"
+
+- name: copy zipkin db init script
+  copy: dest={{ zipkin_home }}/data/initmysql/install.sh  owner={{ zipkin_user }} src=install.sh
+
+- name: copy docker-compose
+  template: backup=yes  dest="{{ zipkin_home }}/docker-compose.yml" owner={{ zipkin_user }}  src=docker-compose.yml.j2
+  notify: rebuild zipkin
+
+- name: copy systemd unit
+  template: src="zipkin.service.j2" dest="/etc/systemd/system/zipkin.service"
+  notify: reload systemd units
+
+- name: start the service
+  service: name=zipkin enabled=yes state=started

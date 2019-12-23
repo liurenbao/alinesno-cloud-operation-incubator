@@ -1,0 +1,56 @@
+# This file uses the version 2 docker-compose file format, described here:
+# https://docs.docker.com/compose/compose-file/#version-2
+#
+# It extends the default configuration from docker-compose.yml to run the
+# zipkin-mysql container instead of the zipkin-cassandra container.
+
+version: '2'
+
+services:
+  # Run MySQL instead of Cassandra
+  storage:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD={{ zipkin_db_password }}
+      - MYSQL_DATABASE={{ zipkin_db_name }}
+      - MYSQL_USER={{ zipkin_db_user }}
+      - MYSQL_PASSWORD={{ zipkin_db_password }}
+      - ZIPKIN_VERSION={{ zipkin_version }}
+    volumes:
+      - {{ zipkin_home }}/data/mysql:/var/lib/mysql
+      - {{ zipkin_home }}/data/initmysql:/docker-entrypoint-initdb.d
+
+  # Switch storage type to MySQL
+  zipkin:
+    image: openzipkin/zipkin:{{ zipkin_version }}
+    container_name: zipkin
+    environment:
+      - STORAGE_TYPE=mysql
+      # Point the zipkin at the storage backend
+      - MYSQL_HOST=mysql
+      - MYSQL_USER={{ zipkin_db_user }}
+      - MYSQL_PASS={{ zipkin_db_password }}
+    ports:
+      # Listen port for the Scribe transport
+      - {{ zipkin_scribe_port }}:9410
+      # Historical port used for the Zipkin HTTP Api
+      - {{ zipkin_api_port }}:9411
+      # Zipkin UI used to be on a separate process listening on port 8080
+      - {{ zipkin_web_port }}:9411
+    depends_on:
+      - storage
+
+  # Adds a cron to process spans since midnight every hour, and all spans each day
+  # This data is served by http://192.168.99.100:8080/dependency
+  #
+  # For more details, see https://github.com/openzipkin/docker-zipkin-dependencies
+  dependencies:
+    image: openzipkin/zipkin-dependencies
+    container_name: dependencies
+    entrypoint: crond -f
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=mysql
+    depends_on:
+      - storage
