@@ -5,4 +5,4 @@
   gather_facts: true
   ignore_errors: no
   roles:
-  - java
+  - { role: java }

@@ -4,6 +4,8 @@
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  vars:
+    new_user_name : 'alinesno'
   roles:
   - { role: chrony, when: "groups['chrony']|length > 0" }
-  - prepare
+  - { role: prepare }

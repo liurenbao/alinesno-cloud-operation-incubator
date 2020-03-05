@@ -29,6 +29,10 @@
       - rsync               # 文件同步工具，分发证书等配置文件需要
       - socat               # 用于port forwarding
       - htop
+      - telnet 
+      - vim 
+      - wget 
+      - net-tools 
     state: present
   when: 'INSTALL_SOURCE != "offline"'
 

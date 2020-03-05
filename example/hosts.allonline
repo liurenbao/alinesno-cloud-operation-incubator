@@ -1,18 +1,21 @@
 # 'etcd' cluster should have odd member(s) (1,3,5,...)
 # variable 'NODE_NAME' is the distinct name of a member in 'etcd' cluster
+[test]
+localhost
+
 [etcd]
-192.168.1.1 NODE_NAME=etcd1
+localhost NODE_NAME=etcd1
 
 # master node(s)
 [kube-master]
-192.168.1.1
+localhost
 
 [zookeepers]
 server[1:1]
 
 # work node(s)
 [kube-node]
-192.168.1.1
+localhost
 
 # [optional] harbor server, a private docker registry
 # 'NEW_INSTALL': 'yes' to install a harbor server; 'no' to integrate with existed one
@@ -26,7 +29,7 @@ server[1:1]
 
 # [optional] ntp server for the cluster
 [chrony]
-#192.168.1.1
+localhost
 
 [all:vars]
 # --------- Main Variables ---------------
