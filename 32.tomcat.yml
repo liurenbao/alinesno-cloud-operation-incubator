@@ -4,5 +4,13 @@
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  vars:
+    tomcat_down_url: http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz
+    tomcat_home : /home/tomcat/mytomcat
+    tomcat_name : apache-tomcat-8.5.51
+    http_port: 8081
+    https_port: 8443
+    admin_username: admin
+    admin_password: adminsecret
   roles:
-  - tomcat
+    - { role : 'tomcat' }
