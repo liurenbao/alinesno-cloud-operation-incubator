@@ -22,7 +22,6 @@ KONG_VER=8.5.51
 HAPROXY_VER=8.5.51
 
 # wget download soft
-
 echo -e "\n----download apache tomcat ${TOMCAT_VER} binary at:"
 wget http://static.cloud.linesno.com/soft/apache-tomcat-${TOMCAT_VER}.tar.gz -P /${DOWNLOAD_DIR}
 
