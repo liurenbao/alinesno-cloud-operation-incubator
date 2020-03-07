@@ -1,14 +1,15 @@
 #### 自动化操作进度文档
-
 > 脚本规划便于自动化操作，同时后续补充和添加
+
+此安装工具提供在线安装和离线安装两个版本(主推离线安装)
 
 | 脚本说明                 | 任务说明                                     | 负责人 | 状态 | 测试 | 备注                    |
 |--------------------------|----------------------------------------------|--------|------|------|-------------------------|
 | 01.prepare.yml           | 初始软件,时间同步，hostname等                | Switch | 集成 | 内测 |                         |
-| 02.jdk.yml               | 操作jdk                                      | Switch | 集成 |      |                         |
-| 03.mysql.yml             | 操作mysql                                    | Switch | 集成 |      |                         |
+| 02.jdk.yml               | 操作jdk                                      | Switch | 集成 | 内测 |                         |
+| 03.mysql.yml             | 操作mysql                                    | Switch | 集成 | 内测 |                         |
 | 04.gitlab.yml            | 操作gitlab                                   | Switch | 集成 |      |                         |
-| 06.nginx.yml             | 操作nginx                                    | Switch | 集成 |      |                         |
+| 06.nginx.yml             | 操作nginx                                    | Switch | 集成 | 内测 |                         |
 | 07.nexus.yml             | 操作nexus2                                   | Switch | 集成 |      |                         |
 | 08.jenkins.yml           | 操作jenkins                                  | Switch | 集成 |      |                         |
 | 09.zentao.yml            | 操作禅道                                     | Switch |      |      |                         |
@@ -30,11 +31,11 @@
 | 25.zookeeper.yml         | 操作zookeepre(集群和单点)                    | Switch | 集成 |      |                         |
 | 26.yapi.yml              | 操作yapi接口测试                             | Switch |      |      |                         |
 | 27.kong.yml              | 操作kong(同步安装界面akong)                  | Switch | 集成 |      |                         |
-| 29.nodejs.yml            | 操作nodejs(并配置国内链接)                   | Switch | 集成 |      |                         |
+| 29.nodejs.yml            | 操作nodejs(并配置国内链接)                   | Switch | 集成 | 内测 |                         |
 | 30.haproxy.yml           | 操作haproxy                                  | Switch | 集成 |      |                         |
-| 32.tomcat.yml            | 操作tomcat(端口/启动和关闭脚本/优化)         | Switch | 集成 |      |                         |
+| 32.tomcat.yml            | 操作tomcat(端口/启动和关闭脚本/优化)         | Switch | 集成 | 内测 |                         |
 | 33.showdoc.yml           | 操作开发文档工具                             | Switch |      |      |                         |
-| 33.k8s.yml               | 操作k8s                                      | Switch | 完成 |      | 集成开源工具`kubeaz`    |
+| 33.k8s.yml               | 操作k8s                                      | Switch | 完成 | 完成 | 集成开源工具`kubeaz`    |
 | 35.keepalived.yml        | 操作keepalive(主备)                          | Switch | 集成 |      |                         |
 | download.sh              | 软件下载脚本(如jdk/mysql)                    | Switch |      |      |                         |
 | operation-tool.sh        | 常用的运维工具(生成密钥)                     | Switch |      |      |                         |

@@ -1,6 +1,12 @@
 ---
-- name: Install Node.js (npm plus all its dependencies).
+- name: '安装nodejs依赖包'
   yum: name=npm state=present enablerepo=epel
 
-- name: Install forever module (to run our Node.js app).
+- name: '安装forever模块'
   npm: name=forever global=yes state=present
+
+- name: '安装gitbook模块'
+  npm: name=gitbook global=yes state=present
+
+- name: '安装gitbook-cli模块'
+  npm: name=gitbook-cli global=yes state=present

@@ -1,7 +1,15 @@
 ---
-- name: Install nginx
+- name: '安装Nginx'
   yum: name=nginx state=present
 
-- name: Copy nginx configuration for wordpress
+- name: '复制Nginx 配置'
   template: src=default.conf dest=/etc/nginx/conf.d/default.conf
+  notify: restart nginx
+
+- name: '复制平台Nginx 平台域名配置'
+  template: src=cloud.linesno.com.conf dest=/etc/nginx/conf.d/cloud.linesno.com.conf
+  notify: restart nginx
+
+- name: '复制默认Nginx'
+  template: src=nginx.conf dest=/etc/nginx/nginx.conf
   notify: restart nginx

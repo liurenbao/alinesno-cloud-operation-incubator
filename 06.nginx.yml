@@ -1,0 +1,10 @@
+# [optional] to synchronize system time of nodes with 'chrony'
+- hosts:
+  - test
+  remote_user: root
+  gather_facts: true
+  ignore_errors: no
+  vars:
+    - server_hostname: 172.20.200.12
+  roles:
+  - { role: 'nginx'}

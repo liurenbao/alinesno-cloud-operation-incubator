@@ -1,5 +1,11 @@
 ---
-- name: Install Mysql package
+- name: '配置MySQL5.7源'
+  copy : src=mysql57-community-release-el7-11.noarch.rpm dest=/usr/share/
+
+- name: '安装MySQL5.7源'
+  shell : 'yum localinstall /usr/share/iyum localinstall mysql57-community-release-el7-11.noarch.rpm'
+
+- name: '安装MySQL安装包'
   yum: name={{ item }} state=present
   with_items:
    - mysql-server
@@ -7,14 +13,14 @@
    - libselinux-python
    - libsemanage-python
 
-- name: Configure SELinux to start mysql on any port
+- name: '配置SELinux用于启动Mysql'
   seboolean: name=mysql_connect_any state=true persistent=yes
   when: ansible_selinux.status == "enabled"
 
-- name: Create Mysql configuration file
+- name: '创建MySQL配置'
   template: src=my.cnf.j2 dest=/etc/my.cnf
   notify:
   - restart mysql
 
-- name: Start Mysql Service
+- name: '启动MySQL服务'
   service: name=mysqld state=started enabled=yes
