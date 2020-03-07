@@ -1,32 +1,40 @@
-- name: nfs-common installed
-  yum :  pkg=nfs-common state=latest
+---
+# Include variables and define needed variables.
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
 
-- name: autofs installed
-  yum : pkg=autofs state=latest
+- name: Include overrides specific to RHEL 7.
+  include_vars: RedHat-7.yml
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution_major_version == "7"
 
-- name: quarantine fstab
-  mount:  src="cicss01:/quarantine" name=/opt/quarantine fstype=nfs  opts="vers=4,rw,nodev,hard,intr,hard,intr,sloppy,async"  state=mounted
+- name: Include overrides specific to Fedora.
+  include_vars: Fedora.yml
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution == "Fedora"
 
-- name: scratch fstab nfs4
-  mount:  src="cicss01:/scratch" name=/scratch fstype=nfs opts="vers=4,rw,nodev,hard,intr,hard,intr,sloppy,async"  state=mounted
+# Setup/install tasks.
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
 
-- name: create place for homdirs
-  file: path=/home-remote state=directory
+- include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
 
-- name : setup auto.master
-  copy: src=auto.master dest=/etc/auto.master
-  notify: restart autofs
+- name: Ensure directories to export exist
+  file: 'path="{{ item.strip().split()[0] }}" state=directory'
+  with_items: "{{ nfs_exports }}"
 
-- name: setup auto.home
-  copy: src=auto.home dest=/etc/auto.home
-  notify: restart autofs
+- name: Copy exports file.
+  template:
+    src: exports.j2
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nfs
 
-- name: create symlink
-  file: src=/home-remote/cic dest=/home/cic state=link
-
-- name: setup /data
-  copy: src=auto.data dest=/etc/auto.data
-  notify: restart autofs
-
-- name: configure nfs-common
-  copy: src=nfs-common dest=/etc/default/nfs-common
+- name: Ensure nfs is running.
+  service: "name={{ nfs_server_daemon }} state=started enabled=yes"
+  when: nfs_exports|length

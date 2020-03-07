@@ -20,21 +20,30 @@
 [dubbo-admin]
 
 [redis]
+106.13.109.193
 
 [zookeeper]
 106.13.109.193
 
 [kafka]
+106.13.109.193
 
 [minio]
 
 [nginx]
+106.13.109.193
+
+[vsftpd]
+106.13.109.193
 
 [nfs]
+106.13.109.193
 
-[ftp]
+[minio]
+106.13.109.193
 
-[qubesonar]
+[sonarqube]
+106.13.109.193
 
 [zipkin]
 

@@ -1,8 +1,16 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - test
+  - kafka
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  vars:
+    kafka_url: "http://static.cloud.linesno.com/soft/kafka_{{ kafka_scala_version }}-{{ kafka_version }}.tgz"
+    kafka_sig_url: "http://static.cloud.linesno.com/soft/kafka_{{ kafka_scala_version }}-{{ kafka_version }}.tgz.asc"
+    kafka_zookeeper_hosts: ['localhost']# <-- must be overridden further up the chain
+    kafka_hosts: ['localhost']
+    port: 9092
+    kafka_version: "2.0.1"
+    kafka_scala_version: "2.11"
   roles:
-  - kafka
+    - { role: 'kafka' }

@@ -6,6 +6,11 @@
     - Restart zookeeper
   when: zookeeper_env is defined and zookeeper_env|length > 0
 
+- name: Create Zookeeper directory.
+  file:
+    path: "{{ zookeeper_conf_dir}}/conf"
+    state: directory
+
 - name: Update the log4j config with saner production values
   template: src=log4j.properties.j2 dest={{ zookeeper_conf_dir }}/conf/log4j.properties
   tags: deploy

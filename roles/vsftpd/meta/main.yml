@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: Bert Van Vreckem
+  description: "An Ansible role for setting up Vsftpd"
+  license: BSD
+  min_ansible_version: 2.4
+  platforms:
+  - name: EL
+    versions:
+      - 6
+      - 7
+  - name: Fedora
+    versions:
+      - 26
+  - name: Ubuntu
+    versions:
+      - precise
+      - trusty
+  - name: Debian
+    versions:
+      - jessie
+      - stretch
+  categories:
+    - system
+dependencies: []

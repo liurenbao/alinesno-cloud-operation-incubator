@@ -1,0 +1,10 @@
+# roles/vsftpd/vars/RedHat.yml
+---
+
+vsftpd_packages:
+  - vsftpd
+  - libsemanage-python
+
+vsftpd_service: vsftpd
+
+vsftpd_config_file: /etc/vsftpd/vsftpd.conf

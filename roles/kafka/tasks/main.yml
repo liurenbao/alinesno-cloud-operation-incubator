@@ -1,0 +1,30 @@
+---
+- include_tasks: check-env.yml
+  tags:
+    - kafka-install
+    - kafka-cfg
+    - check-env
+
+- include_tasks: java.yml
+  when: kafka_java_enabled
+  tags:
+    - kafka-install
+    - java
+
+- include_tasks: system.yml
+  tags:
+    - kafka-install
+    - kafka-cfg
+
+- include_tasks: limits.yml
+  tags:
+    - kafka-cfg
+    - limits
+
+- include_tasks: kafka-install.yml
+  tags:
+    - kafka-install
+
+- include_tasks: kafka-cfg.yml
+  tags:
+    - kafka-cfg
