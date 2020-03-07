@@ -1,27 +1,30 @@
 ---
 # tasks file for ansible-nexus
-- name: Download nexus_package
-  get_url: url=http://download.sonatype.com/nexus/oss/{{ nexus_package }} dest="{{ nexus_download_dir }}/{{ nexus_package }}"
-  tags: download
-  sudo: no
+- name: '确认nexus下载目录是否存在'
+  file:
+    path="{{ nexus_download_dir }}/{{ nexus_package }}"
+    state="directory"
 
-- name: Ensure Nexus o/s group exists
+- name: '下载nexus'
+  get_url: url={{ nexus_down_url }} dest="{{ nexus_download_dir }}/{{ nexus_package }}"
+  tags: download
+
+- name: '确认nexus用户组是否存在'
   group: name="{{ nexus_os_group }}" state=present
   when: nexus_create_os_group
-  sudo: true
 
-- name: Ensure Nexus o/s user exists
+- name: '确认nexus用户是否存在'
   user: name="{{ nexus_os_user }}" group="{{ nexus_os_group }}" shell="{{ nexus_os_user_shell }}" state=present
   when: nexus_create_os_user
   sudo: true
 
-- name: Ensure Nexus installation directory exists
+- name: '确认nexus安装目录是否存在'
   file:
     path="{{ nexus_installation_dir }}"
     state="directory"
   sudo: true
 
-- name: Unpack Nexus download
+- name: '解压nexus目录'
   unarchive:
     src="{{ nexus_download_dir }}/{{ nexus_package }}"
     dest="{{ nexus_installation_dir }}"
@@ -33,14 +36,10 @@
     mode="0755"
   tags: unpack
 
-- name: Update symlink nexus-latest
+- name: '建立nexus软链接'
   shell: ln -fs `ls -d {{ nexus_installation_dir }}/nexus-*|tail -1` {{ nexus_installation_dir }}/nexus-latest
 
-- name: Install createrepo for nexus-yum-repository-plugin
-  yum: name=createrepo state=installed
-  when: ansible_os_family == "RedHat"
-
-- name: Check if sonatype working directory exists
+- name: '判断Nexus目录是否存在'
   stat: path="{{ nexus_installation_dir }}/sonatype-work"
   register: s_w
 
@@ -87,7 +86,7 @@
     group="{{ nexus_os_group }}"
     state=directory
 
-- name: Configure port in nexus.properties
+- name: '配置nexus端口'
   lineinfile:
     dest="{{ nexus_installation_dir }}/nexus-{{ nexus_version }}/conf/nexus.properties"
     line="application-port={{ nexus_port }}"
@@ -111,11 +110,11 @@
   notify:
     - 'restart nexus'
 
-- name: Register service with chkconfig system
-  service: name=nexus enabled=yes
-  when: ansible_os_family == "RedHat"
+# - name: Register service with chkconfig system
+  # service: name=nexus enabled=yes
+  # when: ansible_os_family == "RedHat"
 
-- name: Set service start/stop order
-  sudo: yes
-  command: chkconfig nexus reset
-  when: ansible_os_family == "RedHat"
+# - name: '' Set service start/stop order
+  # sudo: yes
+  # command: chkconfig nexus reset
+  # when: ansible_os_family == "RedHat"

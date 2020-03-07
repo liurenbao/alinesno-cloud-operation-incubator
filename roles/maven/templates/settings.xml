@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <!-- 本地地址 <localRepository>d://m2/repository</localRepository> -->
+	<interactiveMode>true</interactiveMode>
+	<offline>false</offline>
+
+    <!--配置权限,使用默认用户 -->
+    <servers>
+        <server>
+            <id>releases</id>
+            <username>{{ nexus_username }}</username>
+            <password>{{ nexus_password }}</password>
+        </server>
+        <server>
+            <id>snapshots</id>
+            <username>{{ nexus_username }}</username>
+            <password>{{ nexus_password }}</password>
+        </server>
+
+        <!-- aliyun docker 镜像仓库用户名密码 -->
+        <server>
+            <id>docker-aliyun</id>
+            <username>{{ docker_username }}</username>
+            <password>{{ docker_password }}</password>
+            <configuration>
+                <email>{{ docker_username }}</email>
+            </configuration>
+        </server>
+	    <server>
+            <id>{{ docker_repository }}</id>
+            <username>{{ docker_username }}</username>
+            <password>{{ docker_password }}</password>
+        </server>
+   </servers>
+
+    <mirrors>
+        <mirror>
+            <id>alinesno-nexus</id>
+            <mirrorOf>*</mirrorOf>
+            <name>alinesno nexus</name>
+            <url>{{ nexus_url }}</url>
+        </mirror>
+    </mirrors>
+
+    <profiles>
+        <profile>
+            <id>alinesno</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <jdk>1.8</jdk>
+            </activation>
+            <repositories>
+                <!-- 私有库地址 -->
+                <repository>
+                    <id>nexus</id>
+                    <url>{{ nexus_url }}</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <!--插件库地址 -->
+                <pluginRepository>
+                    <id>nexus</id>
+                    <url>{{ nexus_url }}</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+        <profile>
+            <id>sonarqube</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <jdk>1.8</jdk>
+            </activation>
+            <properties>
+                <sonar.host.url>{{ sonar_host_url }}</sonar.host.url>
+                <sonar.login>{{ sonar_login_key }}</sonar.login>
+                <sonar.password></sonar.password>
+                <sonar.inclusions>**/*.java,**/*.xml</sonar.inclusions>
+            </properties>
+        </profile>
+
+    </profiles>
+
+    <!--激活profile -->
+    <activeProfiles>
+        <activeProfile>alinesno</activeProfile>
+	<activeProfile>sonarqube</activeProfile>
+    </activeProfiles>
+
+</settings>
+

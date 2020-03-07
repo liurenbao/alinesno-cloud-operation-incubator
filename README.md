@@ -8,7 +8,7 @@
 | 1    | DevOps   | Jdk        |      |      |      |      |      |      |
 | 2    | DevOps   | Jenkins    |      |      |      |      |      |      |
 | 3    | DevOps   | Nexus      |      |      |      |      |      |      |
-| 4    | DevOps   | Maven      |      |      |      |      |      |      |
+| 4    | DevOps   | Maven      |      | 集成 |      |      | 集成 |      |
 | 5    | DevOps   | Qubesonar  |      |      |      |      |      |      |
 | 6    | DevOps   | Zookeeper  |      |      |      |      |      |      |
 | 7    | DevOps   | MySQL      |      |      |      |      |      |      |

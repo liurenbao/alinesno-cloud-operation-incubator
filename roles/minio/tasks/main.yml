@@ -1,6 +1,6 @@
----
-- include_tasks: install-server.yml
-  when: minio_install_server
+# your two commands
+- name: '下载Maven'
+  get_url: url={{maven_down_url}} dest={{ maven_home }}/{{ maven_name }}.tar.gz
 
-- include_tasks: install-client.yml
-  when: minio_install_client
+- name: '解压maven'
+  shell: chdir=/tmp creates={{ maven_home }} tar -zxf {{ maven_home }}/{{ maven_name }}.tar.gz -C {{ maven_home }}

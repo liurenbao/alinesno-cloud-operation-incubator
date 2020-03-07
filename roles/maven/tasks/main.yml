@@ -1,0 +1,33 @@
+---
+- name: '创建{{ maven_home }}目录'
+  file:
+    path: "{{ maven_home }}"
+    state: directory
+  become_method: sudo
+
+- name: '下载Maven'
+  get_url: url={{maven_down_url}} dest={{ maven_home }}/{{ maven_name }}.tar.gz
+
+- name: '解压Maven'
+  command: chdir={{ maven_home }} /bin/tar xvf {{ maven_home }}/{{ maven_name }}.tar.gz -C {{ maven_home }} creates={{ maven_home }}/{{ maven_name }}
+
+- name: '查看备份文件是否存在'
+  shell: ls {{ maven_home }}/{{ maven_name }}/conf/settings.xml.bak
+  ignore_errors: True
+  register: has_settings_result
+
+- name: '备份配置Maven'
+  shell: cp {{ maven_home }}/{{ maven_name }}/conf/settings.xml {{ maven_home }}/{{ maven_name }}/conf/settings.xml.bak
+  when: has_settings_result | failed
+
+- name: '配置Maven'
+  template: src=settings.xml dest={{ maven_home }}/{{ maven_name }}/conf
+
+- name: '添加M2_HOME变量'
+  lineinfile: dest=/etc/profile regexp="^export M2_HOME=" line="export M2_HOME={{ maven_home }}/{{ maven_name }}"
+
+- name: '添加系统变量'
+  lineinfile: dest=/etc/profile regexp="^export PATH=" line="export PATH=$PATH:$M2_HOME/bin"
+
+- name: '使环境变量生效'
+  shell: source /etc/profile

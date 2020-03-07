@@ -1,8 +1,21 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - test
+  - all
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  vars:
+    maven_down_url: http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz
+    maven_home : /home/maven/mymaven
+    maven_name : apache-maven-3.6.0
+    nexus_url : http://nexus.lbxinhu.com/nexus/content/groups/public
+    nexus_username : deployment
+    nexus_password : deployment
+    docker_repository : registry-vpc.cn-shenzhen.aliyuncs.com
+    docker_username : luoandon@gmail.com
+    docker_password : 1234qwer
+    sonar_host_url : http://sonarqube.lbxinhu.com
+    sonar_login_key : 37231eae21cf053709a1fc93b99ba4503a91b532
   roles:
-  - { role: java }
+  - { role: 'java' }
+  - { role: 'maven' }

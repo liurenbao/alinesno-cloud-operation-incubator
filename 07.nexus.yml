@@ -1,8 +1,18 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - test
+  - nexus
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  vars:
+    nexus_down_url: http://static.cloud.linesno.com/soft/nexus-2.14.1-01-bundle.tar.gz
+    nexus_version: 2.14.1-01
+    nexus_port: 8082
+    nexus_working_dir: /home/alinesno/mynexus/working
+    nexus_download_dir: /home/alinesno/mynexus
+    nexus_package: nexus
+    nexus_installation_dir: /home/alinesno/mynexus
+    nexus_os_group: nexus
+    nexus_os_user: nexus
   roles:
-  - nexus
+  - { role: 'nexus' }
