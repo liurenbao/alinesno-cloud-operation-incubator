@@ -5,7 +5,7 @@
   gather_facts: true
   ignore_errors: no
   vars:
-    maven_down_url: http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz
+    maven_down_url: http://static.cloud.linesno.com/soft/apache-maven-3.6.0-bin.tar.gz
     maven_home : /home/maven/mymaven
     maven_name : apache-maven-3.6.0
     nexus_url : http://nexus.lbxinhu.com/nexus/content/groups/public

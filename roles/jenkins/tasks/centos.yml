@@ -11,18 +11,17 @@
   get_url:
     url: "{{ jenkins_repo_url }}"
     dest: /etc/yum.repos.d/jenkins.repo
-  when: jenkins_repo_url != ""
-  tags: ['skip_ansible_lint']
+  when: jenkins_repo_url | default(false)
 
 - name: Add Jenkins repo GPG key.
   rpm_key:
     state: present
     key: "{{ jenkins_repo_key_url }}"
-  when: jenkins_repo_url != ''
+  when: jenkins_repo_url | default(false)
 
 - name: Download specific Jenkins version.
   get_url:
-    url: "{{ jenkins_pkg_url }}/jenkins-{{ jenkins_version }}-1.1.noarch.rpm"
+    url: {{ jenkins_specific_down_url }}
     dest: "/tmp/jenkins-{{ jenkins_version }}-1.1.noarch.rpm"
   when: jenkins_version is defined
 

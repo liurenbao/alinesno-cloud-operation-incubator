@@ -5,14 +5,18 @@
   gather_facts: true
   ignore_errors: no
   vars:
-    nexus_down_url: http://static.cloud.linesno.com/soft/nexus-2.14.1-01-bundle.tar.gz
-    nexus_version: 2.14.1-01
-    nexus_port: 8082
-    nexus_working_dir: /home/alinesno/mynexus/working
-    nexus_download_dir: /home/alinesno/mynexus
-    nexus_package: nexus
-    nexus_installation_dir: /home/alinesno/mynexus
-    nexus_os_group: nexus
-    nexus_os_user: nexus
+    nexus_down_url: 'http://static.cloud.linesno.com/soft/nexus-2.14.1-01-bundle.tar.gz'
+    nexus_download_dir: '/tmp'
+    nexus_version: 'latest'
+    #nexus_version: '2.14.1-01'
+    nexus_package: 'nexus-{{ nexus_version }}-bundle.tar.gz'
+    nexus_installation_dir: '/usr/share'
+    nexus_working_dir: '/var/nexus'
+    nexus_port: 9999
+    nexus_create_os_user: true
+    nexus_os_user: 'nexus'
+    nexus_create_os_group: "{{ nexus_create_os_user | bool }}"
+    nexus_os_group: 'nexus'
+    nexus_os_user_shell: '/bin/bash'
   roles:
   - { role: 'nexus' }

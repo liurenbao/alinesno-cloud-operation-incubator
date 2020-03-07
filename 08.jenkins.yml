@@ -1,8 +1,18 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - test
+  - jenkins
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  vars:
+    jenkins_specific_down_url: ''
+    jenkins_version: '2.223'
+    jenkins_repo_url: 'https://pkg.jenkins.io/redhat/jenkins.repo'
+    jenkins_repo_key_url: 'https://pkg.jenkins.io/redhat/jenkins.io.key'
+    jenkins_pkg_url: 'https://pkg.jenkins.io/redhat'
+    jenkins_package_state: 'present'
+    jenkins_init_file: '/etc/sysconfig/jenkins'
+    jenkins_http_port_param: '8080'
+    jenkins_java_options_env_var: '-Djenkins.install.runSetupWizard=false'
   roles:
-  - jenkins
+    - { role: 'jenkins' }

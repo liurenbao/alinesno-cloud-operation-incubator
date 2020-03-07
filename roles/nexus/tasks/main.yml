@@ -1,17 +1,14 @@
 ---
 # tasks file for ansible-nexus
-- name: '确认nexus下载目录是否存在'
-  file:
-    path="{{ nexus_download_dir }}/{{ nexus_package }}"
-    state="directory"
-
-- name: '下载nexus'
+- name: '下载nexus{{nexus_version}}安装包'
   get_url: url={{ nexus_down_url }} dest="{{ nexus_download_dir }}/{{ nexus_package }}"
   tags: download
+  sudo: no
 
 - name: '确认nexus用户组是否存在'
   group: name="{{ nexus_os_group }}" state=present
   when: nexus_create_os_group
+  sudo: true
 
 - name: '确认nexus用户是否存在'
   user: name="{{ nexus_os_user }}" group="{{ nexus_os_group }}" shell="{{ nexus_os_user_shell }}" state=present
@@ -24,7 +21,7 @@
     state="directory"
   sudo: true
 
-- name: '解压nexus目录'
+- name: '解压nexus压缩包'
   unarchive:
     src="{{ nexus_download_dir }}/{{ nexus_package }}"
     dest="{{ nexus_installation_dir }}"
@@ -36,18 +33,22 @@
     mode="0755"
   tags: unpack
 
-- name: '建立nexus软链接'
+- name: '建立nexus {{nexus_installation_dir}}软链接'
   shell: ln -fs `ls -d {{ nexus_installation_dir }}/nexus-*|tail -1` {{ nexus_installation_dir }}/nexus-latest
 
-- name: '判断Nexus目录是否存在'
+- name: '建立nexus本地安装包'
+  yum: name=createrepo state=installed
+  when: ansible_os_family == "RedHat"
+
+- name: '检查nexus {{nexus_installation_dir}}目录是否存在'
   stat: path="{{ nexus_installation_dir }}/sonatype-work"
   register: s_w
 
-- name: Move existing sonatype working directory into specified working dir
+- name: '移动nexus工作目录'
   command: mv "{{ nexus_installation_dir }}/sonatype-work" "{{ nexus_working_dir }}"
   when: s_w.stat.exists
 
-- name: Set permissions and ownership on Nexus installation directory
+- name: '设置nexus安装目录权限'
   file:
     path={{ nexus_installation_dir }}/{{ nexus_package }}
     state="directory"
@@ -56,7 +57,7 @@
     mode="0755"
     recurse=true
 
-- name: Set permissions and ownership on Nexus work directory
+- name: '设置nexus工作目录权限'
   file:
     path={{ nexus_working_dir }}
     state="directory"
@@ -65,21 +66,21 @@
     mode="0755"
     recurse=true
 
-- name: Set permissions and ownership on Nexus logs directory
+- name: '设置nexus日志目录权限'
   file:
     path={{ nexus_installation_dir }}/nexus-latest/logs
     owner="{{ nexus_os_user }}"
     group="{{ nexus_os_group }}"
     state=directory
 
-- name: Set permissions and ownership on Nexus tmp directory
+- name: '设置nexus临时目录权限'
   file:
     path={{ nexus_installation_dir }}/nexus-latest/tmp
     owner="{{ nexus_os_user }}"
     group="{{ nexus_os_group }}"
     state=directory
 
-- name: Set permissions and ownership on Nexus pid directory
+- name: '设置nexus运行目录权限'
   file:
     path=/var/run/nexus
     owner="{{ nexus_os_user }}"
@@ -95,7 +96,7 @@
   notify:
     - 'restart nexus'
 
-- name: Configure workdir in nexus.properties
+- name: '配置nexus目录到nexus配置文件中'
   lineinfile:
     dest="{{ nexus_installation_dir }}/nexus-{{ nexus_version }}/conf/nexus.properties"
     line="nexus-work={{ nexus_working_dir }}"
@@ -104,17 +105,18 @@
   notify:
     - 'restart nexus'
 
-- name: Copy the /etc/init.d/nexus file
+- name: '复制/etc/init.d/nexus初始文件'
   template: src=init-nexus.j2 dest=/etc/init.d/nexus owner=root group=root mode=0755 backup=yes
   when: ansible_os_family == "RedHat"
   notify:
     - 'restart nexus'
 
-# - name: Register service with chkconfig system
-  # service: name=nexus enabled=yes
-  # when: ansible_os_family == "RedHat"
+- name: '配置nexus可自动启动'
+  service: name=nexus enabled=yes
+  when: ansible_os_family == "RedHat"
 
-# - name: '' Set service start/stop order
-  # sudo: yes
-  # command: chkconfig nexus reset
-  # when: ansible_os_family == "RedHat"
+- name: '检查nexus配置是否正确'
+  sudo: yes
+  command: chkconfig nexus reset
+  when: ansible_os_family == "RedHat"
+

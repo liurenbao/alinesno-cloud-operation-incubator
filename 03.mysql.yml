@@ -5,6 +5,10 @@
   gather_facts: true
   ignore_errors: no
   vars:
-    mysql_port: 3306
+    mysql57_down_url: 'https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm'
+    mysql57_package: 'mysql57-community-release-el7-11.noarch.rpm'
+    mysql_port: '3306'
+    mysql_user: 'alinesno'
+    mysql_password: 'Alinesno@123$%^'
   roles:
-    - {role: 'mysql'}
+    - { role: 'mysql'}

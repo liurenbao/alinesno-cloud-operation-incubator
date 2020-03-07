@@ -1,8 +1,11 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - test
+  - zookeeper
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  vars:
+    zookeeper_url:  'http://static.cloud.linesno.com/soft/zookeeper-3.4.6.tar.gz'
+    zookeeper_version: '3.4.6'
   roles:
-  - zookeeper
+  - { role: 'zookeeper' }

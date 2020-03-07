@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -u
+
+BACKUP_DIR="{{ jenkins_backup_directory }}"
+BACKUP_BUCKET="{{ jenkins_backup_bucket }}"
+SYNC_OPTIONS="--delete --exclude=.initial-sync --exclude='*/workspace/*'"
+
+# Thin backups keep failing when we have broken links
+# this attempts to allieviate it
+find /var/lib/jenkins -xtype l -exec rm {} \;
+
+echo "Running backup"
+cd "${BACKUP_DIR}"
+su - jenkins -c "aws s3 sync ${SYNC_OPTIONS} "$BACKUP_DIR/" "s3://$BACKUP_BUCKET" --quiet 2> /dev/null"
+RV=$?
+
+{% if jenkins_backup_dms is defined %}
+if [ "${RV}" -eq 0 ]; then
+    curl -d "s=${RV}" -s {{ jenkins_backup_dms }}
+fi
+{% endif %}
+

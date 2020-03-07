@@ -1,6 +1,6 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - test
+  - all
   remote_user: root
   gather_facts: true
   ignore_errors: no

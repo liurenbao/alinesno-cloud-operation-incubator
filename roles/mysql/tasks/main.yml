@@ -1,9 +1,6 @@
 ---
 - name: '配置MySQL5.7源'
-  copy : src=mysql57-community-release-el7-11.noarch.rpm dest=/usr/share/
-
-- name: '安装MySQL5.7源'
-  shell : 'yum localinstall /usr/share/iyum localinstall mysql57-community-release-el7-11.noarch.rpm'
+  yum: name={{ mysql57_down_url }}
 
 - name: '安装MySQL安装包'
   yum: name={{ item }} state=present
@@ -21,6 +18,17 @@
   template: src=my.cnf.j2 dest=/etc/my.cnf
   notify:
   - restart mysql
+
+- name: '查找临时密码'
+  shell: "echo `grep 'temporary.*root@localhost' /var/log/mysqld.log | sed 's/.*root@localhost: //'`"
+  register: mysql_root_password_temp
+  tags: register
+
+- name: '设置新密码'
+  shell: 'mysql -e "SET PASSWORD = PASSWORD(''{{ mysql_password }}'');" --connect-expired-password -uroot -p"{{ mysql_root_password_temp.stdout }}"'
+
+- name: '配置自动启动mysql'
+  service: name=mysqld enabled=yes
 
 - name: '启动MySQL服务'
   service: name=mysqld state=started enabled=yes

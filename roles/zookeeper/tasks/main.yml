@@ -4,12 +4,7 @@
   with_items:
     - libselinux-python
 
+- include_tasks: common.yml
+- include_tasks: systemd.yml
 - include_tasks: tarball.yml
-
-# - include_tasks: upstart.yml
-  # tags: deploy
-
-# - include_tasks: systemd.yml
-  # tags: deploy
-
-# - include_tasks: common-config.yml
+- include_tasks: upstart.yml

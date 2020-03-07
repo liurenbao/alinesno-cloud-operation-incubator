@@ -3,25 +3,25 @@
 
 ### 基础平台自动化部署说明
 
-| 序号 | 类型     | 工具       | 版本 | 单点 | 集群 | 离线 | 在线 | 备注 |
-|:----:|----------|------------|------|------|------|------|------|------|
-| 1    | DevOps   | Jdk        |      |      |      |      |      |      |
-| 2    | DevOps   | Jenkins    |      |      |      |      |      |      |
-| 3    | DevOps   | Nexus      |      |      |      |      |      |      |
-| 4    | DevOps   | Maven      |      | 集成 |      |      | 集成 |      |
-| 5    | DevOps   | Qubesonar  |      |      |      |      |      |      |
-| 6    | DevOps   | Zookeeper  |      |      |      |      |      |      |
-| 7    | DevOps   | MySQL      |      |      |      |      |      |      |
-| 8    | DevOps   | Harbor     |      |      |      |      |      | .    |
-| 9    | 开发工具 | DubboAdmin |      |      |      |      |      |      |
-| 10   | 开发工具 | Redis      |      |      |      |      |      |      |
-| 11   | 开发工具 | Kafka      |      |      |      |      |      |      |
-| 12   | 开发工具 | Zipkin     |      |      |      |      |      |      |
-| 13   | 开发工具 | MinIO      |      |      |      |      |      |      |
-| 14   | 开发工具 | Nginx      |      |      |      |      |      |      |
-| 15   | 开发工具 | NFS        |      |      |      |      |      |      |
-| 16   | 开发工具 | FTP        |      |      |      |      |      |      |
-| 17   | 开发工具 | Seate      |      |      |      |      |      |      |
+| 序号 | 类型     | 工具       | 版本 | 单点   | 集群 | 离线 | 在线 | 备注 |
+|:----:|----------|------------|------|--------|------|------|------|------|
+| 1    | DevOps   | Jdk        |      | 完成   |      |      |      |      |
+| 2    | DevOps   | Jenkins    |      | 进行中 |      |      |      |      |
+| 3    | DevOps   | Nexus      |      | 完成   |      |      |      |      |
+| 4    | DevOps   | Maven      |      | 完成   |      |      |      |      |
+| 5    | DevOps   | Qubesonar  |      |        |      |      |      |      |
+| 6    | DevOps   | Zookeeper  |      | 完成   |      |      |      |      |
+| 7    | DevOps   | MySQL      |      | 完成   |      |      |      |      |
+| 8    | DevOps   | Harbor     |      |        |      |      |      | .    |
+| 9    | 开发工具 | DubboAdmin |      |        |      |      |      |      |
+| 10   | 开发工具 | Redis      |      |        |      |      |      |      |
+| 11   | 开发工具 | Kafka      |      |        |      |      |      |      |
+| 12   | 开发工具 | Zipkin     |      |        |      |      |      |      |
+| 13   | 开发工具 | MinIO      |      |        |      |      |      |      |
+| 14   | 开发工具 | Nginx      |      |        |      |      |      |      |
+| 15   | 开发工具 | NFS        |      |        |      |      |      |      |
+| 16   | 开发工具 | FTP        |      |        |      |      |      |      |
+| 17   | 开发工具 | Seate      |      |        |      |      |      |      |
 
 ### 自动化操作进度文档
 > 脚本规划便于自动化操作，同时后续补充和添加
@@ -41,6 +41,7 @@
 | 09.zbox.yml           | 操作禅道                                     | Switch |      |      |      |
 | 10.dubbo-admin.yml    | 操作dubbo-admin                              | Switch |      |      |      |
 | 11.zipkin.yml         | 操作链路跟踪                                 | Switch | 集成 |      |      |
+| 12.sonarqube.yml      | 操作gitlab                                   | Switch | 集成 |      |      |
 | 13.minio.yml          | 操作云存储服务                               | Switch | 集成 |      |      |
 | 15.seate.yml          | 操作分布式事务中心                           | Switch |      |      |      |
 | 16.harbor.yml         | 操作harbor                                   | Switch | 集成 |      |      |
