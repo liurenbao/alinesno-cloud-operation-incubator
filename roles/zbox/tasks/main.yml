@@ -1,0 +1,44 @@
+---
+# tasks file for ansible-zbox
+- name: '下载zbox{{zbox_version}}安装包'
+  get_url: url={{ zbox_down_url }} dest="{{ zbox_download_dir }}/{{ zbox_package }}"
+  tags: download
+
+- name: '确认zbox用户组是否存在'
+  group: name="{{ zbox_os_group }}" state=present
+  when: zbox_create_os_group
+  sudo: true
+
+- name: '确认zbox用户是否存在'
+  user: name="{{ zbox_os_user }}" group="{{ zbox_os_group }}" shell="{{ zbox_os_user_shell }}" state=present
+  when: zbox_create_os_user
+
+- name: '确认zbox安装目录是否存在'
+  file:
+    path="{{ zbox_installation_dir }}"
+    state="directory"
+
+- name: '解压zbox压缩包'
+  unarchive:
+    src="{{ zbox_download_dir }}/{{ zbox_package }}"
+    dest="{{ zbox_installation_dir }}"
+    force=no
+    copy=false
+    owner={{ zbox_os_user }}
+    group={{ zbox_os_group }}
+    mode="0755"
+  tags: unpack
+
+# - name: '配置zbox默认首页'
+  # template: src=index.php.j2 dest=/etc/init.d/nexus owner=root group=root mode=0755 backup=yes
+
+- name: '复制/etc/init.d/zbox初始文件'
+  template: src=zbox.service.j2 dest=/etc/init.d/zbox owner=root group=root mode=0755 backup=yes
+  when: ansible_os_family == "RedHat"
+  notify:
+    - 'restart zbox'
+
+- name: '配置zbox可自动启动'
+  service: name=zbox enabled=yes
+  when: ansible_os_family == "RedHat"
+

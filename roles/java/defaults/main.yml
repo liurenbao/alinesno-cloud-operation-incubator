@@ -3,4 +3,31 @@
 # default for the OS (see defaults per OS in `vars` directory).
 # java_packages: []
 
-java_home: ""
+java_install_jce: false
+java_entropy_fix: false
+java_install_dir: /opt/java
+java_remove_download: yes
+# like a safety, set to yes in the play
+java_download_from_oracle: yes
+java_download_path: /usr/local/src
+# java_version: 8u201
+java_set_as_default: true
+java_set_as_latest: true
+
+# Extra certs that need to be loaded to make your place run right
+java_extra_certs: []
+
+# Of course don't "changeit" unless you've already done so for real. Time-honoured password, this.
+java_storepass: changeit
+java_architecture: linux-x64
+
+java_artifact_name: "jdk-{{ java_version }}-linux-x64.tar.gz"
+java_tar_file: "{{ java_download_path }}/{{ java_artifact_name }}"
+java_real_home: "{{ java_install_dir }}/jdk{{ java_package }}"
+java_keystore: "{{ java_real_home }}/jre/lib/security/cacerts"
+
+jce_artifact_base: "{{ jce_versions[java_version[0:1]].jce_file_base }}"
+jce_artifact_name: "{{ jce_artifact_base }}.zip"
+jce_temp_dir: "/tmp/jce{{ java_version[0:1] }}"
+jce_download_file: "{{ java_download_path }}/{{ jce_artifact_name }}"
+jce_zip_file: "{{ jce_temp_dir }}/{{ jce_artifact_name }}"

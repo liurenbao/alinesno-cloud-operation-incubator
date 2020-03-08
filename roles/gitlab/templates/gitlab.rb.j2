@@ -13,11 +13,12 @@ external_url '{{ gitlab_fqdn }}'
 ############################
 
 # gitlab_rails['gitlab_ssh_host'] = 'ssh.host_example.com'
-# gitlab_rails['time_zone'] = 'UTC'
-# gitlab_rails['gitlab_email_enabled'] = true
-# gitlab_rails['gitlab_email_from'] = 'example@example.com'
-# gitlab_rails['gitlab_email_display_name'] = 'Example'
-# gitlab_rails['gitlab_email_reply_to'] = 'noreply@example.com'
+gitlab_rails['time_zone'] = 'UTC'
+gitlab_rails['gitlab_email_enabled'] = true
+gitlab_rails['gitlab_email_from'] = '{{ email_from }}'
+gitlab_rails['gitlab_email_display_name'] = '{{ email_display_name }}'
+gitlab_rails['gitlab_email_reply_to'] = '{{ email_reply_to }}'
+
 # gitlab_rails['gitlab_default_can_create_group'] = true
 # gitlab_rails['gitlab_username_changing_enabled'] = true
 # gitlab_rails['gitlab_default_theme'] = 2
@@ -67,27 +68,6 @@ external_url '{{ gitlab_fqdn }}'
 ## Be careful not to break the identation in the ldap_servers block. It is in
 ## yaml format and the spaces must be retained. Using tabs will not work.
 
-{% if gitlab_ad %}
- gitlab_rails['ldap_enabled'] = true
- gitlab_rails['ldap_servers'] = YAML.load <<-'EOS' # remember to close this block with 'EOS' below
-   main: # 'main' is the GitLab 'provider ID' of this LDAP server
-     label: 'LDAP'
-     host: '{{ gitlab_ad_host }}'
-     port: {{ gitlab_ad_port }}
-     uid: '{{ gitlab_ad_uid }}'
-     method: '{{ gitlab_ad_method }}' # "tls" or "ssl" or "plain"
-     bind_dn: '{{ gitlab_ad_bind_dn }}'
-     password: '{{ gitlab_ad_password }}'
-     active_directory: true
-     allow_username_or_email_login: {{ gitlab_ad_allow_username_or_email_login }}
-     block_auto_created_users: {{ gitlab_ad_block_auto_created_users }}
-     base: '{{ gitlab_ad_base }}'
-     user_filter: '{{ gitlab_ad_user_filter }}'
-     ## EE only
-     group_base: ''
-     admin_group: ''
-     sync_ssh_keys: false
-{% elif not gitlab_ad %}
 # gitlab_rails['ldap_enabled'] = false
 # gitlab_rails['ldap_servers'] = YAML.load <<-'EOS' # remember to close this block with 'EOS' below
 #   main: # 'main' is the GitLab 'provider ID' of this LDAP server
@@ -108,7 +88,7 @@ external_url '{{ gitlab_fqdn }}'
 #     admin_group: ''
 #     sync_ssh_keys: false
 #
-{% endif %}
+
 #   secondary: # 'secondary' is the GitLab 'provider ID' of second LDAP server
 #     label: 'LDAP'
 #     host: ''
@@ -271,14 +251,15 @@ EOS
 # see https://gitlab.com/gitlab-org/omnibus-gitlab/blob/629def0a7a26e7c2326566f0758d4a27857b52a3/doc/settings/smtp.md#smtp-settings
 # Use smtp instead of sendmail/postfix.
 
-# gitlab_rails['smtp_enable'] = true
-# gitlab_rails['smtp_address'] = "smtp.server"
-# gitlab_rails['smtp_port'] = 456
-# gitlab_rails['smtp_user_name'] = "smtp user"
-# gitlab_rails['smtp_password'] = "smtp password"
-# gitlab_rails['smtp_domain'] = "example.com"
-# gitlab_rails['smtp_authentication'] = "login"
-# gitlab_rails['smtp_enable_starttls_auto'] = true
+gitlab_rails['smtp_enable'] = true
+gitlab_rails['smtp_address'] = "{{ smtp_address }}"
+gitlab_rails['smtp_port'] = 456
+gitlab_rails['smtp_user_name'] = "{{ smtp_user_name }}"
+gitlab_rails['smtp_password'] = "{{ smtp_password }}"
+gitlab_rails['smtp_domain'] = "{{ smtp_domain }}"
+gitlab_rails['smtp_authentication'] = "login"
+gitlab_rails['smtp_enable_starttls_auto'] = true
+
 # gitlab_rails['smtp_tls'] = false
 # gitlab_rails['smtp_openssl_verify_mode'] = 'none' # Can be: 'none', 'peer', 'client_once', 'fail_if_no_peer_cert', see http://api.rubyonrails.org/classes/ActionMailer/Base.html
 # gitlab_rails['smtp_ca_path'] = "/etc/ssl/certs"
@@ -327,8 +308,8 @@ EOS
 # unicorn['worker_processes'] = 2
 
 ## Advanced settings
-# unicorn['listen'] = '127.0.0.1'
-# unicorn['port'] = 8080
+unicorn['listen'] = {{ unicorn_listen }}
+unicorn['port'] = {{ unicorn_port }}
 # unicorn['socket'] = '/var/opt/gitlab/gitlab-rails/sockets/gitlab.socket'
 # unicorn['pidfile'] = '/opt/gitlab/var/unicorn/unicorn.pid'
 # unicorn['tcp_nopush'] = true

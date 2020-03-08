@@ -1,0 +1,13 @@
+[Unit]
+Description=dubbo-admin
+After=network.target
+
+[Service]
+Type=forking
+ExecStart={{ tomcat_home }}/{{ tomcat_name }}/bin/startup.sh
+ExecReload={{ tomcat_home }}/{{ tomcat_name }}//bin/startup.sh
+ExecStop={{ tomcat_home }}/{{ tomcat_name }}//bin/shutdown.sh
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

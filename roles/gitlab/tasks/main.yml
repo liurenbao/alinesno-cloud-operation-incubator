@@ -30,4 +30,4 @@
 - name: Copy template (for AD)
   template: src=gitlab.rb.j2 dest=/etc/gitlab/gitlab.rb owner=root group=root mode=0600
   notify: configure gitlab
-  when: gitlab_ad
+  # when: gitlab_ad

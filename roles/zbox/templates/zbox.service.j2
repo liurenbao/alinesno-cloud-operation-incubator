@@ -1,0 +1,13 @@
+[Unit]
+Description=zentao
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/opt/zbox/zbox -ap {{ zbox_port }} -mp {{ mysql_port }} start
+ExecReload=/opt/zbox/zbox -ap {{ zbox_port }} -mp {{ mysql_port }} restart
+ExecStop=/opt/zbox/zbox stop
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+---
+
+- name: '清理安装包'
+  shell: 'yum-complete-transaction --cleanup-only'
+
+- name: Ensure MySQL packages are installed.
+  yum:
+    name: "{{ mysql_packages }}"
+    state: present
+    # enablerepo: "{{ mysql_enablerepo | default(omit, true) }}"
+  register: rh_mysql_install_packages

@@ -1,15 +1,100 @@
-- name: Define java_packages.
-  set_fact:
-    java_packages: "{{ __java_packages | list }}"
-  when: java_packages is not defined
+---
 
-# Setup/install tasks.
-- include_tasks: common.yml
+- name: download Java
+  get_url:
+    url: "{{ java_download_url }}"
+    dest: "{{ java_tar_file }}"
+  when: java_download_from_oracle
 
-# Environment setup.
-- name: Set JAVA_HOME if configured.
-  template:
-    src: java_home.sh.j2
-    dest: /etc/profile.d/java_home.sh
-    mode: 0644
-  when: java_home is defined and java_home
+- name: ensure the install dir _is_
+  file:
+    path: "{{ java_install_dir }}"
+    mode: 0755
+    owner: root
+    group: root
+    state: directory
+
+- name: check if the java_home exists
+  stat: path="{{ java_real_home }}"
+  register: java_real_home_check
+
+- name: unarchive the tarball
+  unarchive:
+    src: "{{ java_tar_file }}"
+    dest: "{{ java_install_dir }}"
+    owner: root
+    group: root
+    copy: no
+  when: java_real_home_check.stat.isdir is not defined or not java_real_home_check.stat.isdir
+
+##### BLOCK START
+# - block:
+
+- name: fix weird file not found error
+  file: path="/var/lib/alternatives/{{ item }}" state=absent
+  with_items:
+    - java
+    - keytool
+    - javac
+    - javadoc
+    - jar
+
+- name: set alternatives
+  alternatives:
+    name="{{ item.exe }}"
+    link="/usr/bin/{{ item.exe }}"
+    path="{{ item.path }}/{{ item.exe }}"
+  with_items:
+    - { path: "{{ java_real_home }}/jre/bin", exe: 'java' }
+    - { path: "{{ java_real_home }}/jre/bin", exe: 'keytool' }
+    - { path: "{{ java_real_home }}/bin", exe: 'javac' }
+    - { path: "{{ java_real_home }}/bin", exe: 'javadoc' }
+    - { path: "{{ java_real_home }}/bin", exe: 'jar' }
+
+- name: ensure link is gone
+  file: path="/usr/java/default" state=absent
+
+  # - name: set default
+    # file:
+      # path: "/usr/java/default"
+      # src: "{{ java_real_home }}"
+      # state: link
+
+  # when: java_set_as_default
+#end block
+
+##### BLOCK START
+# - block:
+- name: ensure link is gone
+  file: path="/usr/java/latest" state=absent
+
+  # - name: set latest
+    # file:
+      # path: "/usr/java/latest"
+      # src: "{{ java_real_home }}"
+      # state: link
+  # when: java_set_as_latest
+#end block
+
+- name: Configure Java to use /dev/urandom.
+  lineinfile:
+    dest="{{ java_real_home }}/jre/lib/security/java.security"
+    regexp="^securerandom.source="
+    line="securerandom.source=file:/dev/./urandom"
+  when: java_entropy_fix
+
+# - name: install crypto
+  # include: java-crypto.yml
+  # when: java_install_jce and not java_crypto_policy is defined
+
+# - name: set crypto.policy flag
+  # include: java-crypto-policy.yml
+  # when: java_install_jce and java_crypto_policy is defined
+
+- name: clean up
+  file:
+    path: "{{ java_download_path }}/{{ item }}"
+    state: absent
+  with_items:
+    - "jdk-{{ java_version }}-linux-x64.tar.gz"
+  when: java_remove_download

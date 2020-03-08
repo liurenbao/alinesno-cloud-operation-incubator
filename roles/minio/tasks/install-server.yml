@@ -1,21 +1,21 @@
 ---
-- name: Compose the Minio server download base url
-  set_fact:
-    _minio_server_download_base_url: "https://dl.minio.io/server/minio/release/linux-{{ go_arch }}"
+# - name: Compose the Minio server download base url
+  # set_fact:
+    # _minio_server_download_base_url: "https://dl.minio.io/server/minio/release/linux-{{ go_arch }}"
 
-- name: Compose the Minio server download url with lastest release
-  set_fact:
-    _minio_server_download_url: "{{ _minio_server_download_base_url }}/minio"
-  when: minio_server_release | length == 0
+# - name: Compose the Minio server download url with lastest release
+  # set_fact:
+    # _minio_server_download_url: "{{ _minio_server_download_base_url }}/minio"
+  # when: minio_server_release | length == 0
 
-- name: "Compose the Minio server download url with release {{ minio_server_release }}"
-  set_fact:
-    _minio_server_download_url: "{{ _minio_server_download_base_url }}/archive/minio.{{ minio_server_release }}"
-  when: minio_server_release | length > 0
+# - name: "Compose the Minio server download url with release {{ minio_server_release }}"
+  # set_fact:
+    # _minio_server_download_url: "{{ _minio_server_download_base_url }}/archive/minio.{{ minio_server_release }}"
+  # when: minio_server_release | length > 0
 
-- name: "Get the Minio server checksum for {{ go_arch }} architecture"
-  set_fact:
-    _minio_server_checksum: "{{ lookup('url', _minio_server_download_url + '.sha256sum').split(' ')[0] }}"
+# - name: "Get the Minio server checksum for {{ go_arch }} architecture"
+  # set_fact:
+    # _minio_server_checksum: "{{ lookup('url', _minio_server_download_url + '.sha256sum').split(' ')[0] }}"
 
 - name: Create Minio group
   group:
@@ -41,12 +41,11 @@
 
 - name: Download the Minio server
   get_url:
-    url: "{{ _minio_server_download_url }}"
+    url: "{{ minio_server_download_url }}"
     dest: "{{ minio_server_bin }}"
     owner: "root"
     group: "root"
     mode: 0755
-    checksum: "sha256:{{ _minio_server_checksum }}"
   register: _download_server
   until: _download_server is succeeded
   retries: 5

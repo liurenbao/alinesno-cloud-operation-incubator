@@ -1,0 +1,21 @@
+# [optional] to synchronize system time of nodes with 'chrony'
+- hosts:
+  - zbox
+  remote_user: root
+  gather_facts: true
+  ignore_errors: no
+  vars:
+    zbox_down_url: 'http://static.cloud.linesno.com/soft/ZenTaoPMS.11.7.stable.zbox_64.tar.gz'
+    zbox_download_dir: '/opt'
+    zbox_version: '11.7'
+    zbox_package: 'ZenTaoPMS.{{ zbox_version }}.stable.zbox_64.tar.gz'
+    zbox_installation_dir: '/opt/'
+    zbox_port: 8088
+    mysql_port: 18088
+    zbox_create_os_user: true
+    zbox_os_user: 'zbox'
+    zbox_create_os_group: "{{ zbox_create_os_user | bool }}"
+    zbox_os_group: 'zbox'
+    zbox_os_user_shell: '/bin/bash'
+  roles:
+  - { role: 'zbox' }

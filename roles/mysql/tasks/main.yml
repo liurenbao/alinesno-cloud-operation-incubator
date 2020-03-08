@@ -1,34 +1,26 @@
 ---
-- name: '配置MySQL5.7源'
-  yum: name={{ mysql57_down_url }}
+# Variable configuration.
+- include_tasks: variables.yml
 
-- name: '安装MySQL安装包'
-  yum: name={{ item }} state=present
-  with_items:
-   - mysql-server
-   - MySQL-python
-   - libselinux-python
-   - libsemanage-python
+# Setup/install tasks.
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
 
-- name: '配置SELinux用于启动Mysql'
-  seboolean: name=mysql_connect_any state=true persistent=yes
-  when: ansible_selinux.status == "enabled"
+# - include_tasks: setup-Debian.yml
+  # when: ansible_os_family == 'Debian'
 
-- name: '创建MySQL配置'
-  template: src=my.cnf.j2 dest=/etc/my.cnf
-  notify:
-  - restart mysql
+# - include_tasks: setup-Archlinux.yml
+  # when: ansible_os_family == 'Archlinux'
 
-- name: '查找临时密码'
-  shell: "echo `grep 'temporary.*root@localhost' /var/log/mysqld.log | sed 's/.*root@localhost: //'`"
-  register: mysql_root_password_temp
-  tags: register
+- name: Check if MySQL packages were installed.
+  set_fact:
+    mysql_install_packages: "{{ (rh_mysql_install_packages is defined and rh_mysql_install_packages.changed)
+      or (deb_mysql_install_packages is defined and deb_mysql_install_packages.changed)
+      or (arch_mysql_install_packages is defined and arch_mysql_install_packages.changed) }}"
 
-- name: '设置新密码'
-  shell: 'mysql -e "SET PASSWORD = PASSWORD(''{{ mysql_password }}'');" --connect-expired-password -uroot -p"{{ mysql_root_password_temp.stdout }}"'
-
-- name: '配置自动启动mysql'
-  service: name=mysqld enabled=yes
-
-- name: '启动MySQL服务'
-  service: name=mysqld state=started enabled=yes
+# Configure MySQL.
+- include_tasks: configure.yml
+- include_tasks: secure-installation.yml
+- include_tasks: databases.yml
+- include_tasks: users.yml
+- include_tasks: replication.yml

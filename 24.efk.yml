@@ -14,9 +14,9 @@
   gather_facts: true
   ignore_errors: no
   roles:
-    - { role: elasticsearch }
-    - { role: filebeat }
-    - { role: kibana }
+    - { role: 'elasticsearch' }
+    - { role: 'filebeat' }
+    - { role: 'kibana' }
 
     # - { role: logstash, when: ((logging_backend is none) or (logging_backend == 'logstash')) }
     # - { role: fluentd, when: (logging_backend == 'fluentd') }

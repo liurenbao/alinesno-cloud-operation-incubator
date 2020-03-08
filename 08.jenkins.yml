@@ -5,14 +5,17 @@
   gather_facts: true
   ignore_errors: no
   vars:
-    jenkins_specific_down_url: ''
+    jenkins_specific_down_url: 'http://static.cloud.linesno.com/soft/jenkins-2.223-1.1.noarch.rpm'
     jenkins_version: '2.223'
+    jenkins_http_port: 8080
+    jenkins_hostname: localhost
     jenkins_repo_url: 'https://pkg.jenkins.io/redhat/jenkins.repo'
     jenkins_repo_key_url: 'https://pkg.jenkins.io/redhat/jenkins.io.key'
     jenkins_pkg_url: 'https://pkg.jenkins.io/redhat'
     jenkins_package_state: 'present'
     jenkins_init_file: '/etc/sysconfig/jenkins'
     jenkins_http_port_param: '8080'
-    jenkins_java_options_env_var: '-Djenkins.install.runSetupWizard=false'
+    jenkins_admin_username: admin
+    jenkins_admin_password: admin
   roles:
     - { role: 'jenkins' }

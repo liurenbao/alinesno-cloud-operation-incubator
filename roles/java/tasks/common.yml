@@ -1,5 +1,0 @@
----
-- name: '判断Java是否已经安装'
-  package:
-    name: "{{ java_packages }}"
-    state: present

@@ -1,0 +1,25 @@
+---
+- name: '创建{{ tomcat_home }}目录'
+  file:
+    path: "{{ tomcat_home }}"
+    state: directory
+
+- name: '下载Tomcat8.5.51'
+  get_url: url={{tomcat_down_url}} dest={{ tomcat_home }}/{{ tomcat_name }}.tar.gz
+
+- name: '解压Tomcat'
+  command: chdir={{ tomcat_home }} /bin/tar xvf {{ tomcat_home }}/{{ tomcat_name }}.tar.gz -C {{ tomcat_home }} creates={{ tomcat_home }}/{{ tomcat_name }}
+
+- name: '配置Tomcat'
+  template: src=server.xml dest={{ tomcat_home }}/{{ tomcat_name }}/conf
+
+- name: '复制/etc/init.d/dubbo-admin初始文件'
+  template: src=dubbo-admin.service.j2 dest=/etc/init.d/dubboadmin owner=root group=root mode=0755 backup=yes
+  when: ansible_os_family == "RedHat"
+  notify:
+    - 'restart dubboadmin'
+
+- name: '部署Tomcat防火墙'
+  template: src=iptables-save dest=/etc/sysconfig/iptables
+  when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'"
+  notify: restart iptables

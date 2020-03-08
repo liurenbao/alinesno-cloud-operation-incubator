@@ -4,5 +4,20 @@
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  vars:
+    sonar_home : '/home/sonar'
+    sonar_download_url: 'http://static.cloud.linesno.com/soft/sonarqube-7.4.zip'
+    sonar_version: '7.4'
+    sonar_port : '9000'
+    sonar_mysql_host: '119.23.247.48'
+    sonar_mysql_port: '33306'
+    sonar_mysql_database: 'learn_sonar_01'
+    sonar_mysql_username: 'root'
+    sonar_mysql_password: 'LuoAnDong@Switch'
+    sonar_create_os_user: true
+    sonar_os_user: 'sonar'
+    sonar_create_os_group: "{{ sonar_create_os_user | bool }}"
+    sonar_os_group: 'sonar'
+    sonar_os_user_shell: '/bin/bash'
   roles:
     - { role: 'sonarqube' }

@@ -5,10 +5,15 @@
   gather_facts: true
   ignore_errors: no
   vars:
-    mysql57_down_url: 'https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm'
+    mysql57_down_url: 'http://static.cloud.linesno.com/soft/mysql57-community-release-el7-11.noarch.rpm'
     mysql57_package: 'mysql57-community-release-el7-11.noarch.rpm'
-    mysql_port: '3306'
-    mysql_user: 'alinesno'
-    mysql_password: 'Alinesno@123$%^'
+    mysql_user_home: /home/mysql
+    mysql_user_name: root
+    mysql_user_password: root
+    mysql_root_home: /home/mysql
+    mysql_root_username: root
+    mysql_root_password: root
+    mysql_port: "3306"
+    mysql_bind_address: '0.0.0.0'
   roles:
     - { role: 'mysql'}

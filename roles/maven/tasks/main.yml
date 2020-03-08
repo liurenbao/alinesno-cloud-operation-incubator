@@ -27,7 +27,7 @@
   lineinfile: dest=/etc/profile regexp="^export M2_HOME=" line="export M2_HOME={{ maven_home }}/{{ maven_name }}"
 
 - name: '添加系统变量'
-  lineinfile: dest=/etc/profile regexp="^export PATH=" line="export PATH=$PATH:$M2_HOME/bin"
+  lineinfile: dest=/etc/profile regexp="^export PATH=$M2_HOME" line="export PATH=$M2_HOME/bin:$PATH"
 
 - name: '使环境变量生效'
   shell: source /etc/profile

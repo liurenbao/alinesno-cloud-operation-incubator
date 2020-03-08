@@ -1,0 +1,19 @@
+# [optional] to synchronize system time of nodes with 'chrony'
+- hosts:
+  - gitlab
+  remote_user: root
+  gather_facts: true
+  ignore_errors: no
+  vars:
+    smtp_address: 'smtp.163.com'
+    smtp_user_name: 'linesno_cloud@163.com'
+    smtp_password: '1234qwer'
+    smtp_domain: '163.cm'
+    email_from: 'linesno_cloud@163.com'
+    email_display_name: '基础平台组'
+    email_reply_to: 'linesno_cloud@163.com'
+    unicorn_listen: '127.0.0.1'
+    unicorn_port : '8089'
+    gitlab_fqdn: 'http://gitlab.linesno.com'
+  roles:
+    - { role: 'gitlab'}

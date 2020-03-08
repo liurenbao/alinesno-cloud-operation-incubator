@@ -4,5 +4,11 @@
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  vars:
+    minio_client_download_url: 'http://static.cloud.linesno.com/soft/minio/mc'
+    minio_server_download_url: 'http://static.cloud.linesno.com/soft/minio/minio'
+    minio_server_addr: '0.0.0.0:9098'
+    minio_server_datadirs: ['/var/data']
+    minio_server_cluster_nodes: []
   roles:
     - { role: 'minio' }
