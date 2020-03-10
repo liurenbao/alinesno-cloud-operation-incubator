@@ -10,7 +10,6 @@
     tomcat_name : 'apache-tomcat-8.5.51'
     http_port : 8088
     https_port : 433
-
     dubbo_admin_specific_down_url: 'http://static.cloud.linesno.com/soft/jenkins-2.223-1.1.noarch.rpm'
     zookeeper_link: localhost:2181
   roles:
