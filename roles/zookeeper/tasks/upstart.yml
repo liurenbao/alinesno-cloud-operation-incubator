@@ -1,9 +1,9 @@
 ---
-- name: Check if /etc/init exists
+- name: '检查/etc/init是否存在' # Check if /etc/init exists
   stat: path=/etc/init/
   register: etc_init
 
-- name: Upstart script.
+- name: '配置启动脚本' #': Upstart script.
   template: src=zookeeper.conf.j2 dest=/etc/init/zookeeper.conf
   when:
     - etc_init.stat.exists == true

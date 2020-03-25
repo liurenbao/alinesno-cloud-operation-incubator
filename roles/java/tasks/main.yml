@@ -1,12 +1,11 @@
 ---
-
-- name: download Java
+- name: '从{{java_download_url}}下载{{java_tar_file}}'
   get_url:
     url: "{{ java_download_url }}"
     dest: "{{ java_tar_file }}"
   when: java_download_from_oracle
 
-- name: ensure the install dir _is_
+- name: '确认安装目录{{ java_install_dir }}是否存在'
   file:
     path: "{{ java_install_dir }}"
     mode: 0755
@@ -14,11 +13,11 @@
     group: root
     state: directory
 
-- name: check if the java_home exists
+- name: '查看{{ java_real_home }}是否存在'
   stat: path="{{ java_real_home }}"
   register: java_real_home_check
 
-- name: unarchive the tarball
+- name: '解压{{ java_tar_file }}到{{ java_install_dir }}目录'
   unarchive:
     src: "{{ java_tar_file }}"
     dest: "{{ java_install_dir }}"
@@ -27,10 +26,7 @@
     copy: no
   when: java_real_home_check.stat.isdir is not defined or not java_real_home_check.stat.isdir
 
-##### BLOCK START
-# - block:
-
-- name: fix weird file not found error
+- name: '确认Java默认配置清理'
   file: path="/var/lib/alternatives/{{ item }}" state=absent
   with_items:
     - java
@@ -39,7 +35,7 @@
     - javadoc
     - jar
 
-- name: set alternatives
+- name: '设置可选链接'
   alternatives:
     name="{{ item.exe }}"
     link="/usr/bin/{{ item.exe }}"
@@ -51,47 +47,20 @@
     - { path: "{{ java_real_home }}/bin", exe: 'javadoc' }
     - { path: "{{ java_real_home }}/bin", exe: 'jar' }
 
-- name: ensure link is gone
+- name: '确认默认Java链接被清理'
   file: path="/usr/java/default" state=absent
 
-  # - name: set default
-    # file:
-      # path: "/usr/java/default"
-      # src: "{{ java_real_home }}"
-      # state: link
-
-  # when: java_set_as_default
-#end block
-
-##### BLOCK START
-# - block:
-- name: ensure link is gone
+- name: '确认Java链接被清理'
   file: path="/usr/java/latest" state=absent
 
-  # - name: set latest
-    # file:
-      # path: "/usr/java/latest"
-      # src: "{{ java_real_home }}"
-      # state: link
-  # when: java_set_as_latest
-#end block
-
-- name: Configure Java to use /dev/urandom.
+- name: '配置Java /dev/urandom'
   lineinfile:
     dest="{{ java_real_home }}/jre/lib/security/java.security"
     regexp="^securerandom.source="
     line="securerandom.source=file:/dev/./urandom"
   when: java_entropy_fix
 
-# - name: install crypto
-  # include: java-crypto.yml
-  # when: java_install_jce and not java_crypto_policy is defined
-
-# - name: set crypto.policy flag
-  # include: java-crypto-policy.yml
-  # when: java_install_jce and java_crypto_policy is defined
-
-- name: clean up
+- name: '清理临时文件'
   file:
     path: "{{ java_download_path }}/{{ item }}"
     state: absent

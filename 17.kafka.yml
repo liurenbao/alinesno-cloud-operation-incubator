@@ -3,7 +3,7 @@
   - kafka
   remote_user: root
   gather_facts: true
-  ignore_errors: no
+  ignore_errors: yes
   vars:
     kafka_url: "http://static.cloud.linesno.com/soft/kafka_{{ kafka_scala_version }}-{{ kafka_version }}.tgz"
     kafka_sig_url: "http://static.cloud.linesno.com/soft/kafka_{{ kafka_scala_version }}-{{ kafka_version }}.tgz.asc"

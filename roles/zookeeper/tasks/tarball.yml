@@ -1,50 +1,49 @@
 ---
-- name: "Ensure the tarball dir exists at {{zookeeper_tarball_dir}}"
+- name: "确认zookeeper安装解压目录{{zookeeper_tarball_dir}}是否存在"
   file: path={{zookeeper_tarball_dir}} state=directory
 
-- name: "Ensure the zookeeper dir exists at {{zookeeper_dir}}"
+- name: "确认zookeeper安装目录{{zookeeper_dir}}是否存在"
   file: path={{zookeeper_dir}} state=directory
 
-# If the file exists already, the S3 call can experience errors
-- name: check whether the tarball is downloaded already
+- name: '检查是否已经下载安装包'
   stat: path={{zookeeper_tarball_dir}}/zookeeper-{{zookeeper_version}}.tar.gz
   register: zookeeper_tarball_script
 
-- name: Download zookeeper version.
+- name: '从{{ zookeeper_url }}下载到{{ zookeeper_tarball_dir }}'
   get_url: url={{zookeeper_url}} dest={{zookeeper_tarball_dir}}/zookeeper-{{zookeeper_version}}.tar.gz
   tags: bootstrap
   register: zookeeper_tarball_downloaded
 
-- name: Unpack tarball.
+- name: '解压zookeeper'
   command: tar xf {{zookeeper_tarball_dir}}/zookeeper-{{zookeeper_version}}.tar.gz --strip-components=1 chdir={{zookeeper_dir}} creates={{zookeeper_dir}}/bin
   tags: bootstrap
 
 - group: name=zookeeper system=yes
 - user: name=zookeeper group=zookeeper system=yes
 
-- name: Change ownership on zookeeper directory.
+- name: '改变zookeeper目录{{zookeeper_dir}}权限变成zookeeper用户' # Change ownership on zookeeper directory.
   file: path={{zookeeper_dir}} state=directory owner=zookeeper group=zookeeper
   tags: bootstrap
 
-- name: "Create zookeeper {{item}} directory."
+- name: "创建 {{item}} 目录."
   file: path={{item}} state=directory owner=zookeeper group=zookeeper
   tags: bootstrap
   with_items:
     - "{{data_dir}}"
     - "{{log_dir}}"
 
-- name: Write myid file.
+- name: '写入myid文件' # Write myid file.
   template: src=myid.j2 dest={{data_dir}}/myid owner=zookeeper group=zookeeper force="{{ zookeeper_force_myid }}"
   tags: deploy
   notify:
     - Restart zookeeper
 
-- name: Configure zookeeper zoo.cfg
+- name: '配置zoo.cfg文件' # Configure zookeeper zoo.cfg
   template: src=zoo.cfg.j2 dest={{ zookeeper_dir }}/conf/zoo.cfg owner=zookeeper group=zookeeper
   tags: deploy
   notify:
     - Restart zookeeper
 
-- name: Add zookeeper's bin dir to the PATH
+- name: '添加zookeeper到环境变量中' # Add zookeeper's bin dir to the PATH
   copy: content="export PATH=$PATH:{{zookeeper_dir}}/bin" dest="/etc/profile.d/zookeeper_path.sh" mode=755
   when: zookeeper_register_path_env

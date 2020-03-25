@@ -1,5 +1,5 @@
 ---
-- name: Systemd script.
+- name: '配置zookeeper启动脚本'
   template: src=zookeeper.service.j2 dest=/lib/systemd/system/zookeeper.service
   when: ansible_service_mgr == 'systemd'
   notify:
