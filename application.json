@@ -2,6 +2,12 @@
     {
         "author":"罗小东",
         "icons":"/icons/applications/10.png",
+        "name":"批量分发SSH-Key",
+        "ymlPath":"33.batchkey.yml"
+    },
+    {
+        "author":"罗小东",
+        "icons":"/icons/applications/10.png",
         "name":"CentOS环境初始化",
         "ymlPath":"01.prepare.yml"
     },
