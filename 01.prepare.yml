@@ -1,4 +1,6 @@
 # [optional] to synchronize system time of nodes with 'chrony'
+# --extra-vars "{'chrony_server':'47.105.213.131'}"
+
 - hosts:
   - all
   remote_user: root

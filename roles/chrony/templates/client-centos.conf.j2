@@ -1,5 +1,5 @@
 # Use public servers from the pool.ntp.org project.
-server {{ groups['chrony'][0] }} iburst
+server {{ chrony_server }} iburst
 
 # Ignor source level
 stratumweight 0
