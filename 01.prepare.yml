@@ -6,6 +6,9 @@
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  become: yes
+  become_user: root
+  become_method: su 
   vars:
     new_user_name : 'alinesno'
   roles:
