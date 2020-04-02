@@ -3,6 +3,9 @@
   - all
   remote_user: root
   gather_facts: true
+  become: yes
+  become_user: root
+  become_method: su 
   ignore_errors: no 
   roles:
     - { role : 'batchkey' }
