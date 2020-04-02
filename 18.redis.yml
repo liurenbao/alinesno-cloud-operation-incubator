@@ -1,9 +1,12 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - redis
+  - all
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  become: yes
+  become_user: root
+  become_method: su 
   vars:
     redis_download_url: "http://static.cloud.linesno.com/soft/redis-5.0.0.tar.gz"
     redis_version: 5.0.0
