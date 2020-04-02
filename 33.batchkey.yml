@@ -1,11 +1,11 @@
 # [optional] to synchronize system time of nodes with 'chrony'
-- hosts:
-  - all
-  remote_user: root
-  gather_facts: true
+---
+- hosts: all
   become: yes
   become_user: root
-  become_method: su 
-  ignore_errors: no 
-  roles:
-    - { role : 'batchkey' }
+  become_method: su
+  gather_facts: no 
+  - name: '主机密钥分发'
+    authorized_key: user=root
+                    key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+                    state=present 
