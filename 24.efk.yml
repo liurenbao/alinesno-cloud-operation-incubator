@@ -9,7 +9,7 @@
 # vars_files:
 # - group_vars/all.yml
 
-- hosts: test
+- hosts: all
   remote_user: root
   gather_facts: true
   ignore_errors: no

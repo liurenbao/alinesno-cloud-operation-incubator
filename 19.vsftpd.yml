@@ -6,6 +6,6 @@
   ignore_errors: no
   become: yes
   become_user: root
-  become_method: su 
+  become_method: su
   roles:
     - { role: 'vsftpd' }

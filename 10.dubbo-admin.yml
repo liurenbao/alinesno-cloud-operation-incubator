@@ -1,9 +1,12 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - dubbo-admin
+  - all
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  become: yes
+  become_user: root
+  become_method: su
   vars:
     tomcat_down_url: 'http://static.cloud.linesno.com/soft/apache-tomcat-8.5.51.tar.gz'
     tomcat_home : '/usr/local/dubbo-admin'

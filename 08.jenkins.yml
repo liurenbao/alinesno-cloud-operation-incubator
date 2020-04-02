@@ -4,6 +4,9 @@
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  become: yes
+  become_user: root
+  become_method: su
   vars:
     jenkins_specific_down_url: 'http://static.cloud.linesno.com/soft/jenkins-2.223-1.1.noarch.rpm'
     jenkins_version: '2.223'

@@ -1,11 +1,11 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - all 
+  - all
   gather_facts: true
   ignore_errors: no
   become: yes
   become_user: root
-  become_method: su  
+  become_method: su
   vars:
     zbox_down_url: 'http://static.cloud.linesno.com/soft/ZenTaoPMS.11.7.stable.zbox_64.tar.gz'
     zbox_download_dir: '/opt'

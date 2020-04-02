@@ -6,7 +6,7 @@
   ignore_errors: no
   become: yes
   become_user: root
-  become_method: su 
+  become_method: su
   vars:
     - server_hostname: 127.0.0.1
   roles:

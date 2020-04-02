@@ -1,9 +1,12 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - gitlab
+  - all
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  become: yes
+  become_user: root
+  become_method: su
   vars:
     smtp_address: 'smtp.163.com'
     smtp_user_name: 'linesno_cloud@163.com'

@@ -4,10 +4,10 @@
   become: yes
   become_user: root
   become_method: su
-  gather_facts: no 
-  tasks: 
+  gather_facts: no
+  tasks:
   - name: '主机密钥分发'
     become_user: root
     authorized_key: user=root
                     key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
-                    state=present 
+                    state=present

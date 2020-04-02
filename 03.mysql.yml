@@ -1,9 +1,12 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - mysql
+  - all
   remote_user: root
   gather_facts: true
   ignore_errors: yes
+  become: yes
+  become_user: root
+  become_method: su
   vars:
     mysql57_down_url: 'http://static.cloud.linesno.com/soft/mysql57-community-release-el7-11.noarch.rpm'
     mysql57_package: 'mysql57-community-release-el7-11.noarch.rpm'

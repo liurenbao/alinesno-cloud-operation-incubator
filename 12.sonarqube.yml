@@ -1,9 +1,12 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - sonarqube
+  - all
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  become: yes
+  become_user: root
+  become_method: su
   vars:
     sonar_home : '/home/sonar'
     sonar_download_url: 'http://static.cloud.linesno.com/soft/sonarqube-7.4.zip'

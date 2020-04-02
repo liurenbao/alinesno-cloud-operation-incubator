@@ -1,9 +1,12 @@
 # [optional] to synchronize system time of nodes with 'chrony'
 - hosts:
-  - nexus
+  - all
   remote_user: root
   gather_facts: true
   ignore_errors: no
+  become: yes
+  become_user: root
+  become_method: su
   vars:
     nexus_down_url: 'http://static.cloud.linesno.com/soft/nexus-2.14.1-01-bundle.tar.gz'
     nexus_download_dir: '/tmp'
