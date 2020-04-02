@@ -2,8 +2,7 @@
 # --extra-vars "{'chrony_server':'47.105.213.131'}"
 
 - hosts:
-  - all
-  remote_user: root
+  - all 
   gather_facts: true
   ignore_errors: no
   become: yes
