@@ -10,7 +10,7 @@
   become_user: root
   become_method: su 
   vars:
-    new_user_name : 'alinesno'
+    new_user_name : 'test_user'
   roles:
   - { role: 'chrony' }
   - { role: 'prepare' }
