@@ -23,7 +23,8 @@
   lineinfile: dest=/etc/sudoers state=present  line='{{item}}' validate='visudo -cf %s'
   with_items:
      - "{{ new_user_name }} ALL=(ALL) NOPASSWD: ALL"
-     - "Defaults: {{ new_user_name }}  !requiretty"
+     - "Defaults: {{ new_user_name }}  !requiretty" 
+  ignore_errors: true
 
 - name: '修改用户密码' 
   shell: chage -d 0 {{ new_user_name }}
