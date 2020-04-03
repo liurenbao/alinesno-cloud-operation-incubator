@@ -2,24 +2,20 @@
 # tasks file for ansible-nexus
 - name: '下载nexus{{nexus_version}}安装包'
   get_url: url={{ nexus_down_url }} dest="{{ nexus_download_dir }}/{{ nexus_package }}"
-  tags: download
-  sudo: no
+  tags: download 
 
 - name: '确认nexus用户组是否存在'
   group: name="{{ nexus_os_group }}" state=present
-  when: nexus_create_os_group
-  sudo: true
+  when: nexus_create_os_group 
 
 - name: '确认nexus用户是否存在'
   user: name="{{ nexus_os_user }}" group="{{ nexus_os_group }}" shell="{{ nexus_os_user_shell }}" state=present
-  when: nexus_create_os_user
-  sudo: true
+  when: nexus_create_os_user 
 
 - name: '确认nexus安装目录是否存在'
   file:
     path="{{ nexus_installation_dir }}"
-    state="directory"
-  sudo: true
+    state="directory" 
 
 - name: '解压nexus压缩包'
   unarchive:
@@ -115,8 +111,7 @@
   service: name=nexus enabled=yes
   when: ansible_os_family == "RedHat"
 
-- name: '检查nexus配置是否正确'
-  sudo: yes
+- name: '检查nexus配置是否正确' 
   command: chkconfig nexus reset
   when: ansible_os_family == "RedHat"
 
