@@ -2,7 +2,7 @@
 - name: Download node_exporter binary to folder
   get_url:
     url: "{{ download_url }}/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"
-    dest: "/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    dest: "/opt/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"
   register: _download_binary
   delegate_to: localhost
   until: _download_binary is succeeded
@@ -11,13 +11,13 @@
 
 - name: Unpack node_exporter binary
   unarchive:
-    src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"
-    dest: "/tmp"
+    src: "/opt/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    dest: "/opt"
     copy: no
 
 - name: Propagate node_exporter binaries
   copy:
-    src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}/node_exporter"
+    src: "/opt/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}/node_exporter"
     dest: "{{ _node_exporter_binary_install_dir }}/node_exporter"
   notify: restart node_exporter
 
