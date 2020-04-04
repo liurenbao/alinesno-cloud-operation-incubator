@@ -40,6 +40,7 @@
   args:
     warn: false
   changed_when: false
+  ignore_errors: true
   register: __node_exporter_current_version_output
   check_mode: false
   when: __node_exporter_is_installed.stat.exists
