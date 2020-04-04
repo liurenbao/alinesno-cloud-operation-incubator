@@ -1,4 +1,5 @@
 [
+{"author":"罗小东","icons":"/resources/icons/applications/10.png","id":"31","name":"Prometheus服务器指标","type":"env","typeName":"环境配置","ymlPath":"34.node-exporter.yml"},
 {"author":"罗小东","icons":"/resources/icons/applications/10.png","id":"31","name":"SSH密钥分发","type":"env","typeName":"环境配置","ymlPath":"33.batchkey.yml"},
 {"author":"罗小东","icons":"/resources/icons/applications/10.png","id":"31","name":"CentOS环境初始化","type":"env","typeName":"环境配置","ymlPath":"01.prepare.yml"},
 {"author":"罗小东","icons":"/resources/icons/applications/10.png","id":"32","name":"Jdk和Maven配置","type":"env","typeName":"环境配置","ymlPath":"02.java.yml"},

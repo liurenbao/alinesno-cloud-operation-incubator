@@ -1,0 +1,31 @@
+---
+- name: Download node_exporter binary to folder
+  get_url:
+    url: "{{ download_url }}/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    dest: "/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+  register: _download_binary
+  delegate_to: localhost
+  until: _download_binary is succeeded
+  retries: 5
+  delay: 2
+
+- name: Unpack node_exporter binary
+  unarchive:
+    src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    dest: "/tmp"
+    copy: no
+
+- name: Propagate node_exporter binaries
+  copy:
+    src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}/node_exporter"
+    dest: "{{ _node_exporter_binary_install_dir }}/node_exporter"
+  notify: restart node_exporter
+
+- name: propagate locally distributed node_exporter binary
+  copy:
+    src: "{{ node_exporter_binary_local_dir }}/node_exporter"
+    dest: "{{ _node_exporter_binary_install_dir }}/node_exporter"
+    mode: 0755
+    owner: root
+    group: root
+  notify: restart node_exporter

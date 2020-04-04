@@ -1,0 +1,13 @@
+- hosts:
+  - all
+  gather_facts: true
+  ignore_errors: no
+  become: yes
+  become_user: root
+  become_method: su
+  vars:
+    go_arch: 'amd64'
+    node_exporter_version : '0.18.1'
+    download_url: 'http://static.cloud.linesno.com/soft'
+  roles:
+    - { role : 'node-exporter' }
