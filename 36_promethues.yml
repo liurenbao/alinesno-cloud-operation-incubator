@@ -1,0 +1,19 @@
+## 安装Prometheus和Grafana
+
+- hosts:
+  - all
+  gather_facts: true
+  ignore_errors: no
+  become: yes
+  become_user: root
+  become_method: su
+  vars:
+    prometheus_download_url: 'http://static.cloud.linesno.com/soft'
+    prometheus_components: ["prometheus"]
+    prometheus_alertmanager_hostport: "localhost:9093"
+    grafana_security:
+      admin_user: 'admin'
+      admin_password: 'admin'
+  roles:
+    - { role : 'prometheus'}
+    - { role : 'grafana'}
