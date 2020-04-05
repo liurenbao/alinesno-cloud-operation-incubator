@@ -1,5 +1,5 @@
 ## 先创建监控数据库
-# CREATE USER 'exporter'@'localhost' IDENTIFIED BY 'XXXXXXXX' WITH MAX_USER_CONNECTIONS 3;
+# CREATE USER 'exporter'@'localhost' IDENTIFIED BY '123456qwert' WITH MAX_USER_CONNECTIONS 3;
 # GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'localhost';
 ##
 - hosts:
