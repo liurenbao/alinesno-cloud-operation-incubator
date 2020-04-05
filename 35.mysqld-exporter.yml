@@ -1,0 +1,19 @@
+## 先创建监控数据库
+# CREATE USER 'exporter'@'localhost' IDENTIFIED BY 'XXXXXXXX' WITH MAX_USER_CONNECTIONS 3;
+# GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'localhost';
+##
+- hosts:
+  - all
+  gather_facts: true
+  ignore_errors: no
+  become: yes
+  become_user: root
+  become_method: su
+  vars:
+    download_url: 'http://static.cloud.linesno.com/soft'
+    mysqld_exporter_version: '0.12.1'
+    ansible_architecture : 'amd64'
+    mysqld_exporter_web_listen_address: '0.0.0.0:19888'
+    mysqld_exporter_dsn: 'exporter:123456qwert@(localhost:3306)/'
+  roles:
+    - { role: 'mysqld-exporter' }

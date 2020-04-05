@@ -1,0 +1,56 @@
+[Unit]
+Description=Prometheus Mysqld Exporter
+After=network-online.target
+StartLimitInterval=0
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User={{ __mysqld_exporter_user }}
+Group={{ __mysqld_exporter_group }}
+{% if mysqld_exporter_dsn != "" %}
+Environment="DATA_SOURCE_NAME={{ mysqld_exporter_dsn }}"
+{% endif %}
+ExecStart=/usr/local/bin/mysqld_exporter \
+    {% for c in mysqld_exporter_collect -%}
+    {%   if not c is mapping -%}
+    --collect.{{ c }} \
+    {%   else -%}
+    {%     set name,opt = (c.items() | list)[0] -%}
+    {%     for k,v in opt.items() -%}
+    --collect.{{ name }}.{{ k }}={{ v }} \
+    {%     endfor -%}
+    {%   endif -%}
+    {% endfor -%}
+    {% for c in mysqld_exporter_no_collect -%}
+    --no-collect.{{ c }} \
+    {% endfor %}
+    {% if mysqld_exporter_my_cnf != "" %}
+    --config.my-cnf {{ mysqld_exporter_my_cnf }} \
+    {% endif %}
+    --web.listen-address {{ mysqld_exporter_web_listen_address }}
+
+SyslogIdentifier=mysqld_exporter
+Restart=always
+RestartSec=5
+
+LockPersonality=true
+NoNewPrivileges=true
+MemoryDenyWriteExecute=true
+PrivateTmp=true
+ProtectHome=true
+RemoveIPC=true
+RestrictSUIDSGID=true
+
+{% if mysqld_exporter_systemd_version | int >= 232 %}
+PrivateUsers=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=yes
+ProtectSystem=strict
+{% else %}
+ProtectSystem=full
+{% endif %}
+
+[Install]
+WantedBy=multi-user.target
