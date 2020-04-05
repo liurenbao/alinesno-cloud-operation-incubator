@@ -1,4 +1,5 @@
 [
+{"author":"罗小东","icons":"/resources/icons/applications/10.png","id":"31","name":"Prometheus安装","type":"monitor","typeName":"监控","ymlPath":"36.prometheus.yml"},
 {"author":"罗小东","icons":"/resources/icons/applications/10.png","id":"31","name":"MySQL监控指标","type":"monitor","typeName":"监控","ymlPath":"35.mysqld-exporter.yml"},
 {"author":"罗小东","icons":"/resources/icons/applications/10.png","id":"31","name":"CentOS7监控指标","type":"monitor","typeName":"监控","ymlPath":"34.node-exporter.yml"},
 {"author":"罗小东","icons":"/resources/icons/applications/10.png","id":"31","name":"SSH密钥分发","type":"env","typeName":"环境","ymlPath":"33.batchkey.yml"},
