@@ -29,7 +29,7 @@ CONSUL_CONFIG_FILE="{{ consul_config_file }}"
 
 start() {
     echo -n $"Starting $prog: "
-    daemon --pidfile=$pidfile "${CONSUL_HOME}/${cmd} {% if consul_dynamic_bind %} -bind=$BIND {% endif %} -config-dir=$CONSUL_CONFIG_DIR -config-file=$CONSUL_CONFIG_FILE -data-dir=$CONSUL_DATA_DIR>> $CONSUL_LOG_FILE &"
+    daemon --pidfile=$pidfile "${CONSUL_HOME}/${cmd} {% if consul_dynamic_bind %} -bind=$BIND {% endif %} -config-dir=$CONSUL_CONFIG_DIR -config-file=$CONSUL_CONFIG_FILE -data-dir=$CONSUL_DATA_DIR >> $CONSUL_LOG_FILE &"
     retval=$?
     ps -ef | grep -F "${cmd}" | grep -v 'grep' | awk '{print $2}' > ${pidfile}
     [ $retval -eq 0 ] && touch $lockfile && success

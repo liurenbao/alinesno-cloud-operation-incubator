@@ -44,3 +44,8 @@
 - name: install prometheus
   include_tasks : install-prometheus.yml
   when: '"prometheus" in prometheus_components'
+
+- name: install alertmanager
+  include_tasks : install-alertmanager.yml
+  when: '"alertmanager" in prometheus_components'
+

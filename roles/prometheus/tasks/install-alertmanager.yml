@@ -1,0 +1,66 @@
+---
+# file: tasks/install-alertmanager.yml
+#
+# Install Prometheus alertmanager.
+#
+# @see http://prometheus.io/docs/introduction/getting_started/
+#
+
+- name: set internal variables for convenience, part 1
+  set_fact:
+    prometheus_alertmanager_signature: "alertmanager-{{ prometheus_alertmanager_version }}.{{ prometheus_platform_suffix }}"
+- name: set internal variables for convenience, part 2
+  set_fact:
+    prometheus_alertmanager_untar_path: "{{ prometheus_install_path }}"
+    prometheus_alertmanager_daemon_dir: "{{ prometheus_install_path }}/{{ prometheus_alertmanager_signature }}"
+    prometheus_alertmanager_tarball_url: "{{ alertmanager_download_url }}/{{ prometheus_alertmanager_signature }}.tar.gz"
+- name: download and uncompress alertmanager tarball
+  unarchive:
+    src: "{{ prometheus_alertmanager_tarball_url }}"
+    dest: "{{ prometheus_alertmanager_untar_path }}"
+    copy: no
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "go-w"
+
+- name: mkdir for alertmanager data (silences.json for now)
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "u=rwx,g=rx,o="
+  with_items:
+    - "{{ prometheus_alertmanager_db_path }}"
+
+- name: set alertmanager variables
+  copy: src="../files/etc-default-alertmanager"  dest=/etc/default/alertmanager
+
+- name: copy INIT script to server
+  template: src="../templates/alertmanager.sysvinit.{{ ansible_os_family|lower }}.sh.j2"  dest="/etc/init.d/alertmanager"  mode="a+x"
+  when: not prometheus_use_systemd|bool
+
+- name: copy systemd config to server
+  template: src="../templates/alertmanager.service.j2"  dest="/etc/systemd/system/alertmanager.service"
+  when: prometheus_use_systemd|bool
+
+- name: set INIT status
+  service: name=alertmanager enabled=yes
+  when: prometheus_use_service|bool
+
+#- name: set INIT status and start
+#  service: name=alertmanager state=started
+#  when: prometheus_use_service|bool
+
+- name: install alertmanager config file from playbook's, if any
+  template: src="{{ playbook_dir }}/{{ prometheus_alertmanager_conf }}"  dest="{{ prometheus_config_path }}/alertmanager.yml"
+  when: prometheus_alertmanager_conf is defined
+  notify:
+    - reload alertmanager
+
+- name: install default (email) alertmanager config file, if necessary
+  template: src="../templates/alertmanager.yml.j2"  dest="{{ prometheus_config_path }}/alertmanager.yml"
+  when: prometheus_alertmanager_conf is not defined
+  notify:
+    - reload alertmanager
+

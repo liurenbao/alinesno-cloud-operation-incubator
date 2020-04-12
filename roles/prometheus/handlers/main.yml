@@ -13,8 +13,6 @@
   service: name=prometheus state=stopped
   when: prometheus_use_service|bool
 
-
-
 - name: restart node_exporter
   service: name=node_exporter state=restarted
 
@@ -23,8 +21,6 @@
 
 - name: stop node_exporter
   service: name=node_exporter state=stopped
-
-
 
 - name: restart alertmanager
   service: name=alertmanager state=restarted

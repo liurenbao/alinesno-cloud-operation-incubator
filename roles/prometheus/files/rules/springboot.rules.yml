@@ -1,0 +1,10 @@
+ groups:
+  - name: springboot-monitoring
+    rules:
+    - alert: interface_status
+      expr: sum by (code,exported_job) (increase(push_way_counter[5m])) >3
+      for: 10s
+      labels:
+        status: 非常严重
+      annotations:
+        summary: "接口报错5分钟内超过3次！！！--{{$labels.code}}"

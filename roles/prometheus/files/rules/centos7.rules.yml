@@ -1,0 +1,44 @@
+groups:
+  - name: centeos7-monitoring
+    rules:
+    - alert: 内存报警
+      expr: netdata_system_ram_MiB_average{chart="system.ram",dimension="free",family="ram"} < 800
+      for: 2m
+      labels:
+        team: node
+      annotations:
+        Alert_type: 内存报警
+        Server: '{{$labels.instance}}'
+        #summary: "{{$labels.instance}}: High Memory usage detected"
+        explain: "内存使用量超过90%，目前剩余量为：{{ $value }}M"
+        #description: "{{$labels.instance}}: Memory usage is above 80% (current value is: {{ $value }})"
+    - alert: CPU报警
+      expr: netdata_system_cpu_percentage_average{chart="system.cpu",dimension="idle",family="cpu"} < 20
+      for: 2m
+      labels:
+        team: node
+      annotations:
+        Alert_type: CPU报警
+        Server: '{{$labels.instance}}'
+        explain: "CPU使用量超过80%，目前剩余量为：{{ $value }}"
+        #summary: "{{$labels.instance}}: High CPU usage detected"
+        #description: "{{$labels.instance}}: CPU usage is above 80% (current value is: {{ $value }})"
+    - alert: 磁盘报警
+      expr: netdata_disk_space_GiB_average{chart="disk_space._",dimension="avail",family="/"} < 4
+      for: 2m
+      labels:
+        team: node
+      annotations:
+        Alert_type: 磁盘报警
+        Server: '{{$labels.instance}}'
+        explain: "磁盘使用量超过90%，目前剩余量为：{{ $value }}G"
+    - alert: 服务告警
+      expr: up == 0
+      for: 2m
+      labels:
+        team: node
+      annotations:
+        Alert_type: 服务报警
+        Server: '{{$labels.instance}}'
+        explain: "netdata服务已关闭"
+

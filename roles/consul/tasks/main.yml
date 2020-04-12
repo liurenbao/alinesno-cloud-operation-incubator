@@ -14,4 +14,4 @@
     state="{{ consul_service_state }}"
     enabled=yes
   when: consul_manage_service
-- { include: services.yml, when: consul_services is defined and consul_services|length > 0 }
+- { include_tasks: services.yml, when: consul_services is defined and consul_services|length > 0 }

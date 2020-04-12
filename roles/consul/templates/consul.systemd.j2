@@ -10,7 +10,7 @@ User={{ consul_user }}
 Group={{ consul_group }}
 PermissionsStartOnly=true
 ExecStartPre=/sbin/setcap CAP_NET_BIND_SERVICE=+eip {{ consul_home }}/bin/consul
-ExecStart={{ consul_home }}/bin/consul agent -config-dir {{ consul_config_dir }} -config-file={{ consul_config_file }}
+ExecStart={{ consul_home }}/bin/consul agent -config-dir {{ consul_config_dir }} -config-file={{ consul_config_file }} -data-dir={{ consul_data_dir }}
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGINT
 

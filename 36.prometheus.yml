@@ -9,11 +9,19 @@
   become_method: su
   vars:
     prometheus_download_url: 'http://static.cloud.linesno.com/soft'
-    prometheus_components: ["prometheus"]
+    alertmanager_download_url: 'http://static.cloud.linesno.com/soft'
+    prometheus_components: ["prometheus" , "alertmanager"]
     prometheus_alertmanager_hostport: "localhost:9093"
     grafana_security:
       admin_user: 'admin'
       admin_password: 'admin'
+    prometheus_rule_files:
+      centos7_rules:
+        src:  roles/prometheus/files/rules/centos7.rules.yml
+        dest: centos7.rules.yml
+      springboot_rules:
+        src:  roles/prometheus/files/rules/springboot.rules.yml
+        dest: springboot.rules.yml
   roles:
     - { role : 'prometheus'}
     - { role : 'grafana'}

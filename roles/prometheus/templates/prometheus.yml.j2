@@ -40,6 +40,42 @@ scrape_configs:
     #  - "localhost:9100"
 
 
+{% if prometheus_mysql_monitor is defined %}
+  # mysqld monitor
+  - job_name: 'mysqld'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['{{ prometheus_mysql_monitor }}']
+{% endif %}
+
+{% if consul_sd_host is defined %}
+  # CentOS 监控
+  - job_name: 'centos7-consul'
+    metrics_path: '/metrics'
+    consul_sd_configs:
+      - server: {{ consul_sd_host }}
+        services:
+          - node_exporter
+{% endif %}
+
+{% if prometheus_jenkins_monitor is defined %}
+  # Jenkins 监控
+  - job_name: 'Jenkins'
+    metrics_path: '/prometheus'
+    static_configs:
+      - targets: ['{{ prometheus_jenkins_monitor }}']
+{% endif %}
+
+{% if consul_sd_host is defined %}
+  # SpringBoot 监控
+  - job_name: 'alinesno-cloud-boot'
+    metrics_path: '/actuator/prometheus'
+    consul_sd_configs:
+      - server: {{ consul_sd_host }}
+        services:
+          - alinesno_cloud_exporte
+{% endif %}
+
 {% if prometheus_alertmanager_hostport is defined %}
 alerting:
   alertmanagers:

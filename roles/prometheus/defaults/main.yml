@@ -1,13 +1,13 @@
 ---
 # variables needed to be defined in user's playbook
 # user-configurable defaults
+# prometheus_node_exporter_version:   0.16.0
 
 prometheus_user:   prometheus
 prometheus_group:  prometheus
 
 prometheus_version:                 2.17.1
-# prometheus_node_exporter_version:   0.16.0
-# prometheus_alertmanager_version:    0.20.0
+prometheus_alertmanager_version:    0.20.0
 
 gosu_version: "1.11"
 prometheus_go_version:   1.11
@@ -30,6 +30,17 @@ prometheus_clean_tarball:     true
 
 # rebuild each time?  (only applied to `git` version)
 prometheus_rebuild:           false
+
+# email config
+alertmanager_smtp_from:       "linesno_cloud@163.com"
+alertmanager_smtp_host:       "smtp.163.com:25"
+alertmanager_smtp_username:       "linesno_cloud@163.com"
+alertmanager_smtp_password:       "1234qwer"
+
+# prometheus monitor define
+# prometheus_mysql_monitor:     "47.113.116.150:19888"
+# consul_sd_host:               "47.111.108.91:8500"
+# prometheus_jenkins_monitor:   "jenkins.lbxinhu.com"
 
 # derived variables; internal use only.
 #---- the following vars are handled in tasks/set-role-variables.yml ------
