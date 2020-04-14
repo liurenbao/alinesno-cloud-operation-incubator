@@ -1,0 +1,8 @@
+---
+# author: lework
+
+- import_tasks: install-from-package.yml
+  when: not zabbix_agent_install_from_source
+
+- import_tasks: install-from-source.yml
+  when: zabbix_agent_install_from_source

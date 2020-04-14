@@ -1,0 +1,43 @@
+---
+# author: lework
+
+- block:
+  - name: cluster | Stop rabbitmq app.
+    shell: "{{ software_install_path }}/rabbitmq/sbin/rabbitmqctl stop_app"
+    delegate_to: "{{ item }}"
+    with_items:
+     - "{{ play_hosts | symmetric_difference([ansible_default_ipv4.address]) }}"
+
+  - name: cluster | Wait for rabbitmq app stop.
+    wait_for: port={{ rabbitmq_nodeport }} state=stopped
+    delegate_to: "{{ item }}"
+    with_items:
+     - "{{ play_hosts | symmetric_difference([ansible_default_ipv4.address]) }}"
+
+  - name: cluster | Reset rabbitmq app.
+    shell: "{{ software_install_path }}/rabbitmq/sbin/rabbitmqctl reset"
+    delegate_to: "{{ item }}"
+    with_items:
+     - "{{ play_hosts | symmetric_difference([ansible_default_ipv4.address]) }}"
+
+  - name: cluster | join_cluster for disc mode.
+    shell: "{{ software_install_path }}/rabbitmq/sbin/rabbitmqctl join_cluster rabbit@{{ ansible_hostname }}"
+    delegate_to: "{{ item }}"
+    with_items:
+     - "{{ play_hosts | symmetric_difference([ansible_default_ipv4.address]) }}"
+    when: not rabbitmq_cluster_ram
+
+  - name: cluster | join_cluster for ram mode.
+    shell: "{{ software_install_path }}/rabbitmq/sbin/rabbitmqctl join_cluster --ram rabbit@{{ ansible_hostname }}"
+    delegate_to: "{{ item }}"
+    with_items:
+     - "{{ play_hosts | symmetric_difference([ansible_default_ipv4.address]) }}"
+    when: rabbitmq_cluster_ram
+
+  - name: cluster | Start rabbitmq app.
+    shell: "{{ software_install_path }}/rabbitmq/sbin/rabbitmqctl start_app"
+    delegate_to: "{{ item }}"
+    with_items:
+     - "{{ play_hosts | symmetric_difference([ansible_default_ipv4.address]) }}"
+  run_once: true
+  when: not rabbitmq_cluster_discovery_classic

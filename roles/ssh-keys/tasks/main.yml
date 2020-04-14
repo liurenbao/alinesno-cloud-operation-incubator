@@ -1,0 +1,45 @@
+---
+# author: lework
+
+- name: Make sure the .ssh directory exists.
+  file: path=~/.ssh state=directory
+
+- name: Generate SSH keys.
+  shell: ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
+  args:
+    creates: ~/.ssh/id_rsa
+  when: ((ssh_keys_host is defined and ansible_default_ipv4.address == ssh_keys_host) or (ssh_keys_host is undefined))
+
+- name: Fetch public ssh keys.
+  shell: cat ~/.ssh/id_rsa.pub
+  register: ssh_keys
+  when: ((ssh_keys_host is defined and ansible_default_ipv4.address == ssh_keys_host) or (ssh_keys_host is undefined))
+
+- name: Make sure the running hostname exists in /etc/hosts.
+  lineinfile: "path=/etc/hosts line='{{ansible_default_ipv4.address}} {{ ansible_hostname }}'"
+  delegate_to: "{{ item }}"
+  with_items:
+   - "{{ play_hosts | symmetric_difference([ansible_default_ipv4.address]) }}"
+
+- name: Make sure that the running host exists in ~/.ssh/known_hosts.
+  shell: "ssh-keyscan -t rsa {%if hostvars[ansible_default_ipv4.address].ansible_hostname != 'localhost' %} {{ hostvars[ansible_default_ipv4.address].ansible_hostname }},{%endif%}{{ ansible_default_ipv4.address }} >> ~/.ssh/known_hosts" 
+  delegate_to: "{{ item }}"
+  with_items:
+   - "{{ play_hosts | symmetric_difference([ansible_default_ipv4.address]) }}"
+  when: ((ssh_keys_host is defined and ansible_default_ipv4.address != ssh_keys_host) or (ssh_keys_host is undefined))
+
+- name: Deploy keys on all servers.
+  authorized_key: 
+    user: "{{ ansible_user_id }}"
+    key: "{{ hostvars[item].ssh_keys.stdout }}"
+    state: present
+  with_items:
+   - "{{ play_hosts | symmetric_difference([ansible_default_ipv4.address]) }}"
+  when: ssh_keys_host is undefined
+
+- name: "Deploy keys on all servers, but manger host is {{ ssh_keys_host | d('') }}."
+  authorized_key:
+    user: "{{ ansible_user_id }}"
+    key: "{{ hostvars[ssh_keys_host].ssh_keys.stdout }}"
+    state: present
+  when: ssh_keys_host is defined

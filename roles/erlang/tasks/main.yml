@@ -1,0 +1,11 @@
+---
+# author: lework
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- include_tasks: install_source.yml
+  when: erlang_install_source
+  
+- include_tasks: install_package.yml
+  when: not erlang_install_source
