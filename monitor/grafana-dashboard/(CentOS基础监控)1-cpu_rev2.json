@@ -2123,7 +2123,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "1.主机基础监控(cpu，内存，磁盘，网络)",
+  "title": "CentOS基础监控",
   "uid": "Bkl9bBYik",
   "version": 1
 }

@@ -1725,7 +1725,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Jenkins: Performance and Health Overview",
+  "title": "Jenkins健康监控",
   "uid": "haryan-jenkins",
   "version": 1
 }

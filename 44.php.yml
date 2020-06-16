@@ -1,0 +1,7 @@
+# [optional] to synchronize system time of nodes with 'chrony'
+- hosts:
+  - all
+  gather_facts: true
+  ignore_errors: yes
+  roles:
+    - { role: 'php' }

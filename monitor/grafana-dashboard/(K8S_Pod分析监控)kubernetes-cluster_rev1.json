@@ -1406,7 +1406,7 @@
     ]
   },
   "timezone": "",
-  "title": "K8S_Pod健康分析",
+  "title": "Pod健康分析",
   "uid": "os6Bh8Omk",
   "variables": {
     "list": []
