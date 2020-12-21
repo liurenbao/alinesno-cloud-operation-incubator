@@ -5,6 +5,7 @@
   gather_facts: true
   ignore_errors: no
   vars:
+    db_socket: '/tmp/mysql.sock'
     db_user: 'root'
     db_passwd: 'HouGuiYu@123!@#'
     backup_dir: '/db/backup'
