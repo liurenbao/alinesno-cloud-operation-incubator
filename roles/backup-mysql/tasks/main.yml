@@ -30,7 +30,7 @@
 
 - name: '备份mysql数据库到目录{{ backup_dir }}'
   mysql_db:
-    login_unix_socket: {{ db_socket }}
+    login_unix_socket: "{{ db_socket }}"
     state: dump
     name: "{{ item }}"
     target: "{{ backup_dir }}/{{ item }}/{{ item }}_{{ '%Y-%m-%d-%H-%M-%S' | strftime(ansible_date_time.epoch) }}.sql"
