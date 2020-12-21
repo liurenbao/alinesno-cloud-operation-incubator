@@ -6,8 +6,7 @@
   ignore_errors: no
   vars:
     db_user: 'root'
-    # db_passwd: 'HouGuiYu@123!@#'
-    db_passwd: 'LuoAnDong@Switch'
+    db_passwd: 'HouGuiYu@123!@#'
     backup_dir: '/db/backup'
   roles:
   - { role: 'backup-mysql' }
