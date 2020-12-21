@@ -1,0 +1,14 @@
+# k8s 巡检脚本，检查pod/node等应用运行情况，在master节点上运行
+- hosts:
+  - all
+  remote_user: root
+  gather_facts: true
+  ignore_errors: no
+  vars:
+    db_socket: '/tmp/mysql.sock'
+    db_user: 'root'
+    db_passwd: 'HouGuiYu@123!@#'
+    backup_dir: '/db/backup'
+  roles:
+  - { role: 'polling-k8s' }
+

@@ -1,0 +1,15 @@
+# 基础paas层巡检脚本，
+# 检查kafka、zookeeper、gitlab、jenkins、等
+- hosts:
+  - all
+  remote_user: root
+  gather_facts: true
+  ignore_errors: no
+  vars:
+    db_socket: '/tmp/mysql.sock'
+    db_user: 'root'
+    db_passwd: 'HouGuiYu@123!@#'
+    backup_dir: '/db/backup'
+  roles:
+  - { role: 'polling-k8s' }
+

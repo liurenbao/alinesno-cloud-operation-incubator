@@ -1,0 +1,9 @@
+# tasks file for server
+
+- import_tasks: disk.yml
+
+- import_tasks: memery.yml
+
+- import_tasks: node.yml
+
+- import_tasks: pod.yml

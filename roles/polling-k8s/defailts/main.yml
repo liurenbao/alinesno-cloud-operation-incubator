@@ -1,0 +1,5 @@
+# exclude_db:
+  # - Database
+  # - information_schema
+  # - performance_schema
+  # - mysql
