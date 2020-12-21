@@ -1,0 +1,43 @@
+# tasks file for server
+- name: '安装 MySQL-python 脚本'
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - MySQL-python
+
+- name: '确认{{ backup_dir }} 安装目录是否存在'
+  file:
+    path="{{ backup_dir }}"
+    state="directory"
+
+- name: '获取所有数据库'
+  shell: 'mysql -u root -p{{ db_passwd }} -e "show databases;" '
+  register: dblist
+- debug: msg="{{ dblist.stdout_lines }}"
+
+- set_fact:
+    exclude_db:
+      - 'Database'
+      - 'information_schema'
+      - 'performance_schema'
+      - 'mysql'
+
+- name: '确认{{ backup_dir }} 安装目录是否存在'
+  file:
+    path="{{ backup_dir }}/{{ item }}"
+    state="directory"
+  with_items: "{{ dblist.stdout_lines | difference(exclude_db) }}"
+
+- name: '备份mysql数据库到目录{{ backup_dir }}'
+  mysql_db:
+    state: dump
+    name: "{{ item }}"
+    target: "{{ backup_dir }}/{{ item }}/{{ item }}_{{ '%Y-%m-%d-%H-%M-%S' | strftime(ansible_date_time.epoch) }}.sql"
+    login_user: "{{ db_user }}"
+    login_password: "{{ db_passwd }}"
+  with_items: "{{ dblist.stdout_lines | difference(exclude_db) }}"
+
+# - name: '找出需要清理的备份'
+  # shell: "ls -l -crt  {{ backup_dir }}/{{ item }}/*.sql | awk '{print $9 }' | head -1"
+  # register: delele_file
+  # with_items: "{{ dblist.stdout_lines | difference(exclude_db) }}"

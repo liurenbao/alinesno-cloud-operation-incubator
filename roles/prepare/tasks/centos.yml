@@ -2,7 +2,7 @@
   shell: "yum remove -y {{ item }}"
   become: yes
   become_user: root
-  become_method: su  
+  become_method: su
   with_items:
     - firewalld
     - python-firewall
@@ -22,7 +22,7 @@
 - name: 安装基础软件包
   become: yes
   become_user: root
-  become_method: su  
+  become_method: su
   yum:
     name:
       - bash-completion     # bash命令补全工具，需要重新登录服务器生效
