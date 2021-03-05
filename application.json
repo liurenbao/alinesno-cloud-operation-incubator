@@ -42,6 +42,7 @@
 {"author":"罗小东","icons":"fas fa-frog","id":"907","name":"cas单点登陆平台","role":"alinesno-cloud-platform-cas","type":"alinesno-cloud","typeName":"平台服务","ymlPath":"907.alinesno.cloud.platform.cas.yml"},
 {"author":"罗小东","icons":"fab fa-github","id":"908","name":"SpringbootAdmin监控平台","role":"alinesno-cloud-platform-bootadmin","type":"alinesno-cloud","typeName":"平台服务","ymlPath":"908.alinesno.cloud.platform.bootadmin.yml"},
 {"author":"罗小东","icons":"fab fa-google-plus-square","id":"909","name":"front前端组件","role":"alinesno-cloud-front","type":"alinesno-cloud","typeName":"平台服务","ymlPath":"909.alinesno.cloud.front.yml"},
-{"author":"罗小东","icons":"fas fa-hippo","id":"910","name":"platform文档平台","role":"alinesno-cloud-document","type":"alinesno-cloud","typeName":"平台服务","ymlPath":"910.alinesno.cloud.document.yml"}
+{"author":"罗小东","icons":"fas fa-hippo","id":"910","name":"platform文档平台","role":"alinesno-cloud-document","type":"alinesno-cloud","typeName":"平台服务","ymlPath":"910.alinesno.cloud.document.yml"},
+{"author":"罗小东","icons":"fab fa-accessible-icon","id":"911","name":"测试：创建文件","role":"test","type":"other","typeName":"其它","ymlPath":"test.yml"}
 ]
 
