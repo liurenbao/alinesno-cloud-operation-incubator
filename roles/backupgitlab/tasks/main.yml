@@ -25,4 +25,4 @@
     weekday: "7"
     hour: "4"
     minute: "0" 
-    job: ~/backup/gitlab/backupgitlab.sh
+    job: ~/backup/gitlab/backupgitlab.sh {{remote_ip}}
