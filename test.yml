@@ -1,5 +1,5 @@
 ---
-# [optional] to synchronize    system time of nodes with 'chrony'
+# [optional] to synchronize  system time of nodes with 'chrony'
 - hosts:
   - all
   remote_user: root
