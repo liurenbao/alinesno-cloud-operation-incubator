@@ -1,23 +1,14 @@
 ---
 - name: create dir in target server
   file: 
-    path: ~/backup/gitlab
+    path: /root/backupyun/gitlab
     state:  directory
 
 - name: copy script to target server
   copy: 
     src: backupgitlab.sh
-    dest: ~/backup/gitlab/backupgitlab.sh
-    mode: 744
-
-- name: install requests
-  shell: pip install requests
-
-- name: install bypy
-  shell: pip install bypy    
-
-- name: authorization
-  shell: echo {{authorization_code}} | bypy info
+    dest: /root/backupyun/gitlab/backupgitlab.sh
+    mode: 744   
   
 - name: set cron plan
   cron: 
@@ -25,4 +16,4 @@
     weekday: "7"
     hour: "4"
     minute: "0" 
-    job: ~/backup/gitlab/backupgitlab.sh {{remote_ip}}
+    job: /root/backupyun/gitlab/backupgitlab.sh
