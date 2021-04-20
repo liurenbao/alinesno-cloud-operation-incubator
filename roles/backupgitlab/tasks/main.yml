@@ -26,5 +26,5 @@
   cron: 
     name: backup gitlab project to remote-server and baiduyun
     hour: "18"
-    minute: "34" 
+    minute: "35" 
     job: /root/backupyun/gitlab/backupgitlab.sh
