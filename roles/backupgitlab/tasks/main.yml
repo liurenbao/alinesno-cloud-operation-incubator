@@ -13,7 +13,7 @@
 - name: copy script to target server
   copy: 
     src: makedir.sh
-    dest: /root/backupyun/gitlab/makedir.sh
+    dest: /root/backupyun/gitlab/mkdir.sh
     mode: 744 
 
 - name: copy script to target server
