@@ -3,7 +3,7 @@ source /etc/profile
 source ~/.bash_profile
 #run backup
 
-rm -f /var/opt/gitlab/backups/*
+rm -fr /var/opt/gitlab/backups/*
 rm -f /root/backupyun/gitlab/gitlabbackup.log
 
 gitlab-rake gitlab:backup:create
