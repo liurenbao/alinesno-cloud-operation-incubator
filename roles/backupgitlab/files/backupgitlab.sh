@@ -27,6 +27,11 @@ bypy mkdir ${bdyundir}
 #backup
 bypy upload ${logfile} "${bdyundir}backup.log"
 bypy upload ${bufile} ${bdyundir}
+
+#backup to remote
+/root/backupyun/gitlab/mkdir.sh
+/root/backupyun/gitlab/scpfile.sh
+ 
 #cat ${bufile} | split -b 250m - gitlabbackup.tar.
 #sta=$?
 #if [ sta = 0 ] 
