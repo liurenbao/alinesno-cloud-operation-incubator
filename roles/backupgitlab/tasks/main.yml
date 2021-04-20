@@ -9,7 +9,19 @@
     src: backupgitlab.sh
     dest: /root/backupyun/gitlab/backupgitlab.sh
     mode: 744   
-  
+
+- name: copy script to target server
+  copy: 
+    src: makedir.sh
+    dest: /root/backupyun/gitlab/makedir.sh
+    mode: 744 
+
+- name: copy script to target server
+  copy: 
+    src: scpfile.sh
+    dest: /root/backupyun/gitlab/scpfile.sh
+    mode: 744 
+
 - name: set cron plan
   cron: 
     name: backup gitlab project to remote-server and baiduyun
