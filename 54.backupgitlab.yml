@@ -1,5 +1,5 @@
 ---
-- hosts: gitlab_server
+- hosts: all
   remote_user: root
   roles: 
     - backupgitlab
