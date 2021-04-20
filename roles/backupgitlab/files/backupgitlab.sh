@@ -1,15 +1,17 @@
 #! /bin/bash
-
-
-remotedir="$1:/root/backupgitlab"
-
+source /etc/profile
+source ~/.bash_profile
 #run backup
-gitlab-rake gitlab:backup:create SKIP=repositories
 
-bufile=`ls /var/opt/gitlab/backups`
+rm -f /var/opt/gitlab/backups/*
+rm -f /root/backupyun/gitlab/gitlabbackup.log
+
+gitlab-rake gitlab:backup:create
+
+bufile=`ls /var/opt/gitlab/backups | awk 'NR==1{print}'`
 bdir="/var/opt/gitlab/backups/"
 bufile="${bdir}${bufile}"
-logfile="/root/backup/gitlab/gitlabbackup.log"
+logfile="/root/backupyun/gitlab/gitlabbackup.log"
 bdyundir="/backup/"
 
 #give log
@@ -19,25 +21,28 @@ lm="$dt------------------------$bufile"
 touch ${logfile}
 echo ${lm} >> ${logfile}
 
+
+bypy delete ${bdyundir}
+bypy mkdir ${bdyundir}
 #backup
-#backup log
-bypy upload ${logfile} ${bdyundir}backup.log
-scp  ${logfile} ${remotedir}
-
-#backup gitlab
+bypy upload ${logfile} "${bdyundir}backup.log"
 bypy upload ${bufile} ${bdyundir}
-scp ${bufile} ${remotedir}
-
-#cat ${bufile} | split -b 250m - ${bdir}gitlabbackup.tar.
-rm -f ${bufile}
-rm -f ${logfile}
-
-#分片备份
-#wait
+#cat ${bufile} | split -b 250m - gitlabbackup.tar.
+#sta=$?
+#if [ sta = 0 ] 
+#then
+#               rm -f ${bufile}
+#fi
+#rm -f ${logfile}
+#
 #for file in `ls ${bdir}`
 #do
 #{
-#	bypy upload ${bdir}${file} ${bdyundir}
-#	scp ${bdir}${file} ${remotedir}
+#       bypy upload ${bdir}${file} ${bdyundir}
+#       scp ${bdir}${file} ${remotedir}
 #} &
 #done
+#
+#wait
+
+exit
