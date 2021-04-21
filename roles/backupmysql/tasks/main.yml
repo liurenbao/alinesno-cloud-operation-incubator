@@ -13,6 +13,6 @@
 - name: set cron plan
   cron: 
     name: backup gitlab project to baiduyun
-    hour: "17"
+    hour: "28"
     minute: "18" 
-    job: /root/backupyun/gitlab/backupmysql.sh {{password}}
+    job: /root/backupyun/mysql/backupmysql.sh {{password}}
