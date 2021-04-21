@@ -1,0 +1,30 @@
+---
+- name: create dir in target server
+  file: 
+    path: /root/backupyun/mysql
+    state:  directory
+
+- name: copy script to target server
+  copy: 
+    src: backupmysql.sh
+    dest: /root/backupyun/mysql/backupgitlab.sh
+    mode: 744   
+
+- name: copy script to target server
+  copy: 
+    src: mkdir.sh
+    dest: /root/backupyun/mysql/mkdir.sh
+    mode: 744 
+
+- name: copy script to target server
+  copy: 
+    src: scpfile.sh
+    dest: /root/backupyun/mysql/scpfile.sh
+    mode: 744 
+
+- name: set cron plan
+  cron: 
+    name: backup gitlab project to remote-server and baiduyun
+    hour: "19"
+    minute: "15" 
+    job: /root/backupyun/gitlab/backupgitlab.sh
