@@ -7,7 +7,7 @@
 - name: copy script to target server
   copy: 
     src: backupmysql.sh
-    dest: /root/backupyun/mysql/backupgitlab.sh
+    dest: /root/backupyun/mysql/backupmysql.sh
     mode: 744   
 
 - name: set cron plan
@@ -15,4 +15,4 @@
     name: backup gitlab project to remote-server and baiduyun
     hour: "19"
     minute: "15" 
-    job: /root/backupyun/gitlab/backupgitlab.sh
+    job: /root/backupyun/gitlab/backupmysql.sh
