@@ -14,5 +14,5 @@
   cron: 
     name: backup gitlab project to baiduyun
     hour: "17"
-    minute: "2" 
+    minute: "10" 
     job: /root/backupyun/gitlab/backupmysql.sh {{password}}
