@@ -46,6 +46,7 @@
 {"author":"罗小东","icons":"fab fa-accessible-icon","id":"911","name":"测试：创建文件","role":"test","type":"other","typeName":"其它","ymlPath":"test.yml"},
 {"author":"苏泽","icons":"fab fa-hippo","id":"912","name":"百度云上传组件bypy","role":"bypy","type":"other","typeName":"其它","ymlPath":"bypy.yml"},
 {"author":"苏泽","icons":"fab fa-accessible-icon","id":"913","name":"定时备份gitlab到云盘","role":"backupgitlab","type":"other","typeName":"其它","ymlPath":"54.backupgitlab.yml"},
-{"author":"苏泽","icons":"fab fa-github","id":"914","name":"定时备份mysql到云盘","role":"backupmysql","type":"other","typeName":"其它","ymlPath":"55.backupmysql.yml"}
+{"author":"苏泽","icons":"fab fa-github","id":"914","name":"定时备份mysql到云盘","role":"backupmysql","type":"other","typeName":"其它","ymlPath":"55.backupmysql.yml"},
+{"author":"谭卢钢","icons":"fab fa-github","id":"915","name":"测试复制java文件","role":"test-deployment","type":"other","typeName":"其它","ymlPath":"56.test-deployment.yml"}
 ]
 
