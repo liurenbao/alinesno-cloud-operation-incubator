@@ -1,0 +1,4 @@
+- name: cp java to /home/test-deployment
+  copy:
+  src: '/usr/java/jdk-11.0.9'
+  dest: '/home/test-deployment'
