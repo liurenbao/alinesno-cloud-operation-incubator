@@ -14,6 +14,6 @@
     mysqld_exporter_version: '0.12.1'
     ansible_architecture : 'amd64'
     mysqld_exporter_web_listen_address: '0.0.0.0:19888'
-    mysqld_exporter_dsn: 'exporter:123456qwert@(localhost:3306)/'
+    mysqld_exporter_dsn: 'exporter:123456qwert@(47.115.43.234:3306)/'
   roles:
     - { role: 'mysqld-exporter' }
