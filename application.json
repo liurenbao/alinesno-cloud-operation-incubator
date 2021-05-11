@@ -47,6 +47,7 @@
 {"author":"苏泽","icons":"fab fa-hippo","id":"912","name":"百度云上传组件bypy","role":"bypy","type":"other","typeName":"其它","ymlPath":"bypy.yml"},
 {"author":"苏泽","icons":"fab fa-accessible-icon","id":"913","name":"定时备份gitlab到云盘","role":"backupgitlab","type":"other","typeName":"其它","ymlPath":"54.backupgitlab.yml"},
 {"author":"苏泽","icons":"fab fa-github","id":"914","name":"定时备份mysql到云盘","role":"backupmysql","type":"other","typeName":"其它","ymlPath":"55.backupmysql.yml"},
-{"author":"谭卢钢","icons":"fab fa-github","id":"915","name":"测试复制java文件","role":"test-deployment","type":"other","typeName":"其它","ymlPath":"56.test-deployment.yml"}
+{"author":"谭卢钢","icons":"fab fa-github","id":"915","name":"测试复制java文件","role":"test-deployment","type":"other","typeName":"其它","ymlPath":"56.test-deployment.yml"},
+{"author":"谭卢钢","icons":"fas fa-feather","id":"916","name":"mysqld-exporter","role":"mysqld-exporter","type":"other","typeName":"其它","ymlPath":"35.mysqld-exporter.yml"}
 ]
 
