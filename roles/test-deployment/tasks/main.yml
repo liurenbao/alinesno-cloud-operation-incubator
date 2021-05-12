@@ -1,4 +1,4 @@
 - name: copy java to /usr/test-deployment
   copy:
     src: '/usr/README.html'
-    dest: '/usr/test-deployment'
+    dest: '/usr/test-deployment/README.html'
