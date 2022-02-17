@@ -13,6 +13,7 @@ yum install ansible
 ```
 
 配置hosts
+>  此处配置hosts示例，同时可以配置hostname，批量更新云服务器
 
 ```shell
 cat /etc/ansible/hosts
