@@ -1,5 +1,47 @@
-## devops自动安装脚本
-此用于自动安装devops工具环境，同时提供基础的研发平台
+## 自动化安装脚本
+此用于自动安装devops工具环境，同时提供基础的研发平台，集成ansible各种内部脚本，便于修改和集成内部开发环境，
+便于一键部署基础环境，主要针对于内部环境少量服务器(1-200台)更为适用
+
+使用说明:<i>待补充链接</i>
+
+### 集成说明
+
+安装 ansible
+
+```shell
+yum install ansible
+```
+
+配置hosts
+
+```shell
+cat /etc/ansible/hosts
+
+[all]
+192.168.101.103  ansible_ssh_user=root ansible_ssh_pass=123456
+192.168.101.104  ansible_ssh_user=root ansible_ssh_pass=123456
+192.168.101.105  ansible_ssh_user=root ansible_ssh_pass=123456
+192.168.101.106  ansible_ssh_user=root ansible_ssh_pass=123456
+192.168.101.107  ansible_ssh_user=root ansible_ssh_pass=123456
+192.168.101.108  ansible_ssh_user=root ansible_ssh_pass=123456
+```
+
+可集成jenkins，可自动化操作
+> 此步骤可忽略
+
+运行示例
+```shell
+
+# 初始化服务器环境
+ansible-playbook 01.prepare.yml --extra-vars "{'chrony_server':'192.168.101.103'}"
+
+# 安装jdk8
+ansible-playbook 02.java.yml
+
+# 批量安装ssh免密登陆
+ ansible-playbook 33.batchkey.yml
+
+```
 
 ### 基础平台自动化部署说明
 
